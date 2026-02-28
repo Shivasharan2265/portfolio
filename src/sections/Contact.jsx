@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Container,
@@ -8,240 +8,280 @@ import {
   TextField,
   Paper,
   IconButton,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import EmailIcon from '@mui/icons-material/Email';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import SendIcon from '@mui/icons-material/Send';
+  Stack,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { motion } from "framer-motion";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
+import SendIcon from "@mui/icons-material/Send";
 
-const ContactPaper = styled(Paper)(({ theme }) => ({
+const ContactPaper = styled(motion(Paper))(({ theme }) => ({
   padding: theme.spacing(4),
-  backgroundColor: '#ffffff',
-  borderRadius: '16px',
-  height: '100%',
+  backgroundColor:
+    theme.palette.mode === "dark" ? "rgba(26, 26, 26, 0.8)" : "#ffffff",
+  borderRadius: "24px",
+  backdropFilter: "blur(12px)",
+  border: `1px solid ${theme.palette.divider}`,
+  height: "100%",
+  boxShadow:
+    theme.palette.mode === "dark"
+      ? "0 8px 32px rgba(0,0,0,0.4)"
+      : "0 8px 32px rgba(0,0,0,0.05)",
 }));
 
-const SocialIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: '#f3f4f6',
-  color: theme.palette.primary.main,
-  marginRight: theme.spacing(1),
-  width: '48px',
-  height: '48px',
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: '#ffffff',
-  },
+const IconCircle = styled(Box)(({ theme }) => ({
+  width: "44px",
+  height: "44px",
+  borderRadius: "10px",
+  backgroundColor: theme.palette.secondary.main + "20", // 20% opacity of your theme amber
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: theme.spacing(2),
+  color: theme.palette.secondary.main,
 }));
 
-const StyledTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    color: '#1f2937',
-    backgroundColor: '#f9fafb',
-    '& fieldset': {
-      borderColor: '#e5e7eb',
-    },
-    '&:hover fieldset': {
-      borderColor: '#2563eb',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#2563eb',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#6b7280',
-    '&.Mui-focused': {
-      color: '#2563eb',
-    },
-  },
-});
+// The Interactive Image Component
+// New Reliable Interactive Illustration
+const ContactIllustration = () => {
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+        height: "280px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        mb: 4,
+        perspective: "1000px",
+      }}
+    >
+      {/* Decorative background glow */}
+      <Box
+        sx={{
+          position: "absolute",
+          width: "180px",
+          height: "180px",
+          bgcolor: "secondary.main",
+          filter: "blur(70px)",
+          opacity: 0.15,
+          zIndex: 0,
+        }}
+      />
 
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2rem',
-  fontWeight: 700,
-  marginBottom: theme.spacing(1),
-  position: 'relative',
-  display: 'inline-block',
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    bottom: -8,
-    left: 0,
-    width: '60px',
-    height: '4px',
-    background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
-    borderRadius: '2px',
+      {/* The Main Illustration (Pure SVG for reliability) */}
+      <motion.div
+        animate={{
+          y: [0, -15, 0],
+          rotate: [0, 5, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{ zIndex: 1 }}
+      >
+        <svg
+          width="200"
+          height="200"
+          viewBox="0 0 200 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Main Envelope Body */}
+          <motion.rect
+            x="20"
+            y="50"
+            width="160"
+            height="110"
+            rx="15"
+            stroke="currentColor"
+            strokeWidth="2"
+            style={{ color: "#E0A458" }} // Uses your Amber theme color
+          />
+          {/* Envelope Top Flap */}
+          <path
+            d="M20 60L100 110L180 60"
+            stroke="#E0A458"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          {/* Floating 'Smart' Nodes (Represents Tech Stack) */}
+          <motion.circle
+            cx="40"
+            cy="30"
+            r="8"
+            fill="#E0A458"
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.circle
+            cx="160"
+            cy="40"
+            r="5"
+            fill="#2D3047"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+        </svg>
+      </motion.div>
+    </Box>
+  );
+};
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "14px",
+    backgroundColor:
+      theme.palette.mode === "dark" ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.01)",
+    "& fieldset": { borderColor: theme.palette.divider },
+    "&:hover fieldset": { borderColor: theme.palette.secondary.main },
+    "&.Mui-focused fieldset": {
+      borderColor: theme.palette.secondary.main,
+      borderWidth: "2px",
+    },
   },
 }));
 
 function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
   };
 
   return (
-    <Box 
-      component="section" 
+    <Box
+      component="section"
       id="contact"
-      sx={{ 
+      sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: '#f9fafb',
+        backgroundColor: "background.default",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <SectionTitle variant="h2" sx={{ '&::after': { left: '50%', transform: 'translateX(-50%)' } }}>
-            Get In Touch
-          </SectionTitle>
-          <Typography variant="body1" sx={{ mt: 3, maxWidth: '600px', mx: 'auto' }}>
-            Have a project in mind? Let's work together to create something amazing
-          </Typography>
+        <Box sx={{ textAlign: "center", mb: 8 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            <Typography
+              variant="overline"
+              color="secondary"
+              sx={{ fontWeight: 800, letterSpacing: 3 }}
+            >
+              Ready to help
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                background: (theme) =>
+                  `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Let's Create Together
+            </Typography>
+          </motion.div>
         </Box>
-        
+
         <Grid container spacing={4}>
-          <Grid item xs={12} md={5}>
-            <ContactPaper elevation={0}>
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
-                Let's Talk
+          <Grid item size={{ xs: 12, md: 5 }}>
+            <ContactPaper
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <ContactIllustration />
+
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+                Contact Info
               </Typography>
-              
-              <Typography variant="body2" paragraph sx={{ mb: 4, color: '#6b7280' }}>
-                I'm always excited to hear about new projects and opportunities. 
-                Feel free to reach out through any of these channels.
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+                Fill out the form or reach out via my social handles.
               </Typography>
-              
-              <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                  <Box sx={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 2,
-                  }}>
-                    <EmailIcon sx={{ color: '#2563eb' }} />
-                  </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.secondary">Email</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>sruthi.design@email.com</Typography>
-                  </Box>
-                </Box>
-                
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                  <Box sx={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 2,
-                  }}>
-                    <PhoneIcon sx={{ color: '#2563eb' }} />
-                  </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.secondary">Phone</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>+91 98765 43210</Typography>
-                  </Box>
-                </Box>
-                
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Box sx={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 2,
-                  }}>
-                    <LocationOnIcon sx={{ color: '#2563eb' }} />
-                  </Box>
-                  <Box>
-                    <Typography variant="caption" color="text.secondary">Location</Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>Bangalore, India</Typography>
-                  </Box>
-                </Box>
-              </Box>
-              
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                Follow Me
-              </Typography>
-              
-              <Box>
-                <SocialIconButton href="https://github.com" target="_blank">
-                  <GitHubIcon />
-                </SocialIconButton>
-                <SocialIconButton href="https://linkedin.com" target="_blank">
-                  <LinkedInIcon />
-                </SocialIconButton>
-                <SocialIconButton href="https://twitter.com" target="_blank">
-                  <TwitterIcon />
-                </SocialIconButton>
-              </Box>
+
+              <Stack spacing={2.5} sx={{ mb: 4 }}>
+                {[
+                  {
+                    icon: EmailIcon,
+                    label: "Email",
+                    val: "shiva.dev@email.com",
+                  },
+                  { icon: PhoneIcon, label: "Phone", val: "+91 98765 43210" },
+                ].map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <Box key={i} sx={{ display: "flex", alignItems: "center" }}>
+                      <IconCircle>
+                        <Icon fontSize="small" />
+                      </IconCircle>
+                      <Box>
+                        <Typography variant="caption" color="text.secondary">
+                          {item.label}
+                        </Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                          {item.val}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  );
+                })}
+              </Stack>
             </ContactPaper>
           </Grid>
-          
-          <Grid item xs={12} md={7}>
-            <ContactPaper elevation={0}>
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
-                Send Me a Message
+
+          <Grid item size={{ xs: 12, md: 7 }}>
+            <ContactPaper
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
+                Direct Message
               </Typography>
-              
               <form onSubmit={handleSubmit}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <StyledTextField
-                      fullWidth
-                      label="Your Name"
-                      variant="outlined"
-                      required
-                    />
+                <Grid container spacing={2.5}>
+                  <Grid item size={{ xs: 12, sm: 6 }}>
+                    <StyledTextField fullWidth label="Name" />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <StyledTextField
-                      fullWidth
-                      label="Your Email"
-                      variant="outlined"
-                      type="email"
-                      required
-                    />
+                  <Grid item size={{ xs: 12, sm: 6 }}>
+                    <StyledTextField fullWidth label="Email" />
                   </Grid>
-                  <Grid item xs={12}>
-                    <StyledTextField
-                      fullWidth
-                      label="Subject"
-                      variant="outlined"
-                      required
-                    />
+                  <Grid item size={{ xs: 12 }}>
+                    <StyledTextField fullWidth label="Subject" />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item size={{ xs: 12 }}>
                     <StyledTextField
                       fullWidth
                       label="Message"
-                      variant="outlined"
                       multiline
                       rows={4}
-                      required
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item size={{ xs: 12 }}>
                     <Button
+                      fullWidth
                       type="submit"
                       variant="contained"
-                      color="primary"
-                      size="large"
+                      sx={{
+                        py: 1.8,
+                        mt: 1,
+                        bgcolor: "secondary.main",
+                        color: "#000",
+                        fontWeight: 700,
+                        "&:hover": { bgcolor: "secondary.dark" },
+                      }}
                       endIcon={<SendIcon />}
-                      sx={{ mt: 2 }}
                     >
                       Send Message
                     </Button>

@@ -128,7 +128,7 @@ function LatestWorks() {
       component="section" 
       id="works"
       sx={{ 
-        py: { xs: 8, md: 12 },
+       
         backgroundColor: 'background.default',
         overflow: 'hidden' // Prevents slider horizontal scroll
       }}
