@@ -32,10 +32,15 @@ const HeroSection = styled(Box)(({ theme }) => ({
   overflow: "hidden",
   backgroundColor: theme.palette.background.default,
   transition: "background-color 0.3s ease",
+  padding: theme.spacing(2, 0), // Added vertical padding for mobile
 }));
 
 const GlassCard = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2),
+    textAlign: "center", // Center text on mobile
+  },
 }));
 
 const SocialIconButton = styled(IconButton)(({ theme }) => ({
@@ -194,6 +199,8 @@ function Hero() {
                     fontWeight: 800,
                     mb: 2,
                     color: theme.palette.text.primary,
+                    // Responsive Font Size
+                    fontSize: { xs: "2.5rem", sm: "3.0rem", md: "3.0rem" },
                   }}
                 >
                   I'm{" "}
@@ -215,6 +222,8 @@ function Hero() {
                     fontWeight: 500,
                     color: theme.palette.text.secondary,
                     mb: 3,
+                    // Responsive Font Size
+                    fontSize: { xs: "1.25rem", sm: "1.25rem", md: "1.25rem" },
                   }}
                   whileHover={{ x: 10, transition: { duration: 0.3 } }}
                 >
@@ -226,14 +235,20 @@ function Hero() {
                   sx={{
                     mb: 4,
                     color: theme.palette.text.secondary,
-                    fontSize: "1.1rem",
-                    maxWidth: "500px",
+                    fontSize: { xs: "0.9rem", sm: "1.1rem" },
+                    maxWidth: { xs: "100%", md: "500px" },
                     fontWeight: 500,
+                    mx: { xs: "auto", md: 0 }, // Center text block on mobile
                   }}
                 >
                   <Box
                     component="span"
-                    sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1,
+                      justifyContent: { xs: "center", md: "flex-start" },
+                    }}
                   >
                     {skills.map((skill, index) => (
                       <React.Fragment key={skill}>
@@ -272,7 +287,14 @@ function Hero() {
                 </MotionTypography>
 
                 <MotionBox
-                  sx={{ display: "flex", gap: 2, mb: 5 }}
+                  sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", sm: "row" }, // Column on mobile
+                    gap: 2,
+                    mb: 5,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                    alignItems: "center",
+                  }}
                   variants={itemVariants}
                 >
                   <MotionButton
@@ -284,6 +306,7 @@ function Hero() {
                     sx={{
                       borderRadius: "12px",
                       px: 4,
+                      width: { xs: "100%", sm: "auto" }, // Full width on mobile
                       position: "relative",
                       overflow: "hidden",
                       "&::after": {
@@ -316,6 +339,7 @@ function Hero() {
                     sx={{
                       borderRadius: "12px",
                       px: 4,
+                      width: { xs: "100%", sm: "auto" }, // Full width on mobile
                       backgroundColor: isDarkMode ? "transparent" : "#fff",
                       borderColor: isDarkMode
                         ? "rgba(59, 130, 246, 0.5)"
@@ -335,13 +359,25 @@ function Hero() {
                 </MotionBox>
 
                 <MotionBox
-                  sx={{ display: "flex", gap: 1 }}
+                  sx={{
+                    display: "flex",
+                    gap: 1,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
                   variants={itemVariants}
                 >
                   {[
-                    { Icon: GitHubIcon, color: "#333", delay: 0 },
-                    { Icon: LinkedInIcon, color: "#0077b5", delay: 1 },
-                    { Icon: TwitterIcon, color: "#1DA1F2", delay: 2 },
+                    {
+                      Icon: GitHubIcon,
+                      url: "https://github.com/Shivasharan2265",
+                      delay: 0,
+                    },
+                    {
+                      Icon: LinkedInIcon,
+                      url: "https://www.linkedin.com/in/shivasharan26",
+                      delay: 1,
+                    },
+                  
                   ].map((social, index) => (
                     <MotionIconButton
                       key={index}
@@ -351,6 +387,7 @@ function Hero() {
                       animate="visible"
                       whileHover="hover"
                       whileTap={{ scale: 0.9 }}
+                      onClick={() => window.open(social.url, "_blank")}
                       sx={{
                         backgroundColor: isDarkMode
                           ? `rgba(59, 130, 246, 0.1)`
@@ -367,17 +404,18 @@ function Hero() {
         </Grid>
       </Container>
 
-      {/* Floating particles animation */}
+      {/* Floating particles - Hidden on mobile to keep UI clean */}
       <Box
         component={motion.div}
         sx={{
           position: "absolute",
-          bottom: 50,
-          right: 50,
-          width: 200,
-          height: 200,
+          bottom: { xs: 20, md: 50 },
+          right: { xs: 20, md: 50 },
+          width: { xs: 100, md: 200 },
+          height: { xs: 100, md: 200 },
           pointerEvents: "none",
           zIndex: 1,
+          display: { xs: "none", sm: "block" }, // Optional: Hide on mobile to improve performance
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

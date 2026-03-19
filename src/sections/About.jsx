@@ -212,47 +212,11 @@ const techStackVariants = {
   },
 };
 
-const githubLinkVariants = {
-  hidden: { x: -20, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12,
-      delay: 1.2,
-    },
-  },
-  hover: {
-    x: 10,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10,
-    },
-  },
-};
-
 function About() {
   const techStack = {
-    frontend: [
-      "React.js",
-      "Next.js",
-      "JavaScript",
-      "Redux",
-      "Material-UI",
-    ],
-    backend: [
-      "Node.js",
-      "Express.js",
-      "REST APIs",
-      "Socket.io",
-    ],
-    database: [
-      "MongoDB",
-      "MySql"
-    ],
+    frontend: ["React.js", "React Expo", "JavaScript", "Redux", "Material-UI"],
+    backend: ["Node.js", "Express.js", "REST APIs", "Socket.io"],
+    database: ["MongoDB", "MySql"],
     devops: ["Docker", "AWS", "Git", "CI/CD", "Vercel", "Netlify"],
   };
 
@@ -287,10 +251,7 @@ function About() {
             order={{ xs: 2, md: 1 }}
             variants={leftColumnVariants}
           >
-            <MotionBox 
-              variants={containerVariants}
-              sx={{ mb: 3 }}
-            >
+            <MotionBox variants={containerVariants} sx={{ mb: 3 }}>
               <MotionTypography
                 variant="overline"
                 variants={itemVariants}
@@ -309,10 +270,15 @@ function About() {
                 variant="h2"
                 variants={sectionTitleVariants}
                 sx={{
-                  fontSize: "2.5rem",
+                  fontSize: {
+                    xs: "1.9rem",
+                    sm: "2.2rem",
+                    md: "2.5rem",
+                  },
+                  textAlign: { xs: "center", md: "left" },
                   fontWeight: 700,
                   marginBottom: 1,
-                  background: (theme) => 
+                  background: (theme) =>
                     `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -333,19 +299,16 @@ function About() {
                 lineHeight: 1.8,
               }}
             >
-              I craft full-stack web applications with modern technologies.
-              Specialized in building scalable MERN applications with clean code
-              and exceptional user experiences.
+              I'm a passionate Full-Stack Developer with a strong interest in
+              building modern, user-friendly web applications. I enjoy bridging the gap between design,
+              functionality, and technology to create seamless digital
+              experiences.
             </MotionTypography>
 
-           
             {/* Tech Stack Categories */}
-            <MotionBox 
-              variants={techStackVariants}
-              sx={{ mb: 4 }}
-            >
-              <MotionTypography 
-                variant="h6" 
+            <MotionBox variants={techStackVariants} sx={{ mb: 4 }}>
+              <MotionTypography
+                variant="h6"
                 variants={itemVariants}
                 sx={{ mb: 2, fontWeight: 600 }}
               >
@@ -375,7 +338,6 @@ function About() {
                         variant="outlined"
                         custom={index}
                         variants={chipVariants}
-                       
                         sx={{
                           borderRadius: "6px",
                           cursor: "pointer",
@@ -409,7 +371,6 @@ function About() {
                           variant="outlined"
                           custom={index}
                           variants={chipVariants}
-                         
                           sx={{
                             borderRadius: "6px",
                             cursor: "pointer",
@@ -422,71 +383,69 @@ function About() {
               </Stack>
             </MotionBox>
 
-         {/* Quick Stats - Compact Design */}
-<Grid container spacing={2} sx={{ mb: 3 }}>
-  {quickStats.map((stat, index) => (
-    <Grid item xs={4} key={index}>
-      <MotionBox
-        custom={index}
-        variants={statCardVariants}
-        whileHover="hover"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1.5,
-          p: 1.5,
-          borderRadius: "12px",
-        
-          border: "1px solid",
-          borderColor: "divider",
-          transition: "all 0.25s ease",
+            {/* Quick Stats - Compact Design */}
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+              {quickStats.map((stat, index) => (
+                <Grid item xs={4} key={index}>
+                  <MotionBox
+                    custom={index}
+                    variants={statCardVariants}
+                    whileHover="hover"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      p: 1.5,
+                      borderRadius: "12px",
 
-          
-        }}
-      >
-        {/* Icon */}
-        <Box
-          sx={{
-            fontSize: "20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 36,
-            height: 36,
-            borderRadius: "8px",
-            background: (theme) =>
-              `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-          }}
-        >
-          {stat.icon}
-        </Box>
+                      border: "1px solid",
+                      borderColor: "divider",
+                      transition: "all 0.25s ease",
+                    }}
+                  >
+                    {/* Icon */}
+                    <Box
+                      sx={{
+                        fontSize: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        background: (theme) =>
+                          `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                      }}
+                    >
+                      {stat.icon}
+                    </Box>
 
-        {/* Text */}
-        <Box>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: 700,
-              lineHeight: 1,
-            }}
-          >
-            {stat.value}
-          </Typography>
+                    {/* Text */}
+                    <Box>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{
+                          fontWeight: 700,
+                          lineHeight: 1,
+                        }}
+                      >
+                        {stat.value}
+                      </Typography>
 
-          <Typography
-            variant="caption"
-            sx={{
-              color: "text.secondary",
-              fontSize: "0.7rem",
-            }}
-          >
-            {stat.label}
-          </Typography>
-        </Box>
-      </MotionBox>
-    </Grid>
-  ))}
-</Grid>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "text.secondary",
+                          fontSize: "0.7rem",
+                        }}
+                      >
+                        {stat.label}
+                      </Typography>
+                    </Box>
+                  </MotionBox>
+                </Grid>
+              ))}
+            </Grid>
 
             {/* GitHub Link */}
             {/* <MotionBox

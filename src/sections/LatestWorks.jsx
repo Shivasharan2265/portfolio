@@ -142,6 +142,7 @@ function LatestWorks() {
         </Box>
 
         <Box sx={{ mx: -2 }}> {/* Negative margin to align slider cards with container */}
+          
           <Slider {...settings}>
             {projects.map((project, index) => (
               <Box key={index} sx={{ pb: 5 }}> {/* Bottom padding for shadows/dots */}
