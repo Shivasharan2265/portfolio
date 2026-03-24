@@ -1,119 +1,125 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Box,
   Container,
   Grid,
   Typography,
-  Paper,
   Chip,
   Stack,
   Button,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  Paper,
+  Avatar,
+  Card,
+  CardContent,
+  useTheme,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import ScreenSearchDesktopIcon from "@mui/icons-material/ScreenSearchDesktop";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import TerminalIcon from "@mui/icons-material/Terminal";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import StorageIcon from "@mui/icons-material/Storage";
+import SearchIcon from "@mui/icons-material/Search";
+import PrintIcon from "@mui/icons-material/Print";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import SecurityIcon from "@mui/icons-material/Security";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { AnimatePresence } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import IconButton from "@mui/material/IconButton";
-import totalQ from "../../assets/totalQ.png";
-import printQ from "../../assets/printQ.png";
+
+import dashboard from "../../assets/dashboard.png";
+import permission from "../../assets/permission.png";
 import rec2 from "../../assets/rec2.mov";
+import rec3 from "../../assets/rec3.mov";
+import rec4 from "../../assets/rec4.mov";
 
-// --- Styled Components ---
+// Styled Components
 const MotionBox = motion(Box);
-const MotionPaper = motion(Paper);
-const MotionGrid = motion(Grid);
+const GradientBg = styled(Box)(({ theme }) => ({
+  background: `linear-gradient(135deg, ${theme.palette.primary.main}08 0%, ${theme.palette.secondary.main}08 100%)`,
+  borderRadius: "48px",
+}));
 
-const GradientText = styled(Typography)(({ theme }) => ({
+const FeatureCard = styled(Card)(({ theme }) => ({
+  background: "transparent",
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: "24px",
+  transition: "all 0.3s ease",
+  cursor: "pointer",
+  "&:hover": {
+    borderColor: theme.palette.primary.main,
+    transform: "translateY(-4px)",
+    boxShadow: `0 20px 40px -12px ${theme.palette.primary.main}20`,
+  },
+}));
+const GradientText = styled("span")(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
-  fontWeight: 800,
+  backgroundClip: "text",
 }));
 
-const InfoCard = styled(MotionPaper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  height: "100%",
-  background:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, 0.02)"
-      : "rgba(45, 48, 71, 0.02)",
-  borderRadius: "24px",
+const StatCard = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  textAlign: "center",
+  background: `linear-gradient(135deg, ${theme.palette.primary.main}05 0%, ${theme.palette.secondary.main}05 100%)`,
+  borderRadius: "32px",
   border: `1px solid ${theme.palette.divider}`,
-  transition: "transform 0.3s ease",
-  "&:hover": {
-    transform: "translateY(-8px)",
-    borderColor: theme.palette.secondary.main,
-  },
-}));
-const SliderImageContainer = styled(Box)(({ theme }) => ({
-  width: "100%",
-  height: "550px",
-  borderRadius: "24px",
-  overflow: "hidden",
-  position: "relative",
-  backgroundColor: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.divider}`,
-  [theme.breakpoints.down("md")]: {
-    height: "300px",
-  },
-  "& img, & video": {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-  },
 }));
 
-const TechBadge = styled(Box)(({ theme }) => ({
+const WorkflowStep = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  gap: theme.spacing(1),
-  padding: theme.spacing(1, 2),
-  borderRadius: "12px",
-  backgroundColor: theme.palette.background.subtle,
-  border: `1px solid ${theme.palette.divider}`,
-  "& svg": { fontSize: "1.2rem" },
+  gap: theme.spacing(2),
+  padding: theme.spacing(2),
+  borderRadius: "20px",
+  transition: "all 0.2s ease",
+  "&:hover": {
+    background: `${theme.palette.primary.main}08`,
+  },
 }));
 
-// --- Animations ---
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
+const screenshots = [
+  {
+    title: "Smart Question Selection",
+    desc: "Filter and pick questions intelligently from the bank",
+    url: rec3,
+    type: "video",
+  },
+  {
+    title: "Instant Paper Generation",
+    desc: "Auto-formatted exam papers ready for print",
+    url: rec2,
+    type: "video",
+  },
+  {
+    title: "Performance Analytics",
+    desc: "Track student performance in real-time",
+    url: rec4,
+    type: "video",
+  },
+  {
+    title: "Role-Based Access",
+    desc: "Granular permissions for staff management",
+    url: permission,
+    type: "image",
+  },
+  {
+    title: "Analytics Dashboard",
+    desc: "Comprehensive insights and trends",
+    url: dashboard,
+    type: "image",
+  },
+];
 
 function QuestionBank() {
-  const screenshots = [
-    {
-      title: "System Demo",
-      desc: "Live recording of question paper generation workflow.",
-      url: rec2,
-      type: "video",
-    },
-    {
-      title: "Smart Dashboard",
-      desc: "Analytics on question distribution across subjects.",
-      url: totalQ,
-      type: "image",
-    },
-    {
-      title: "LaTeX Editor",
-      desc: "Real-time math equation rendering.",
-      url: printQ,
-      type: "image",
-    },
-  ];
+  const theme = useTheme();
+  const showcaseRef = useRef(null);
 
+  const scrollToShowcase = () => {
+    showcaseRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const handleNext = () => {
@@ -127,367 +133,491 @@ function QuestionBank() {
   };
 
   return (
-    <Box sx={{ bgcolor: "background.default", pb: 10 }}>
-      {/* Hero Section */}
-      <Box sx={{ py: { xs: 10, md: 15 }, borderColor: "divider" }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item size={{ xs: 12, md: 7 }}>
-              <MotionBox initial="hidden" animate="visible" variants={fadeInUp}>
-                <Chip
-                  label="Enterprise SaaS"
-                  color="primary"
-                  sx={{ mb: 2, fontWeight: 700 }}
-                />
-                <GradientText
-                  variant="h1"
-                  sx={{ fontSize: { xs: "2.5rem", md: "3.5rem" }, mb: 2 }}
-                >
-                  Question Bank Portal
-                </GradientText>
-                <Typography
-                  variant="h5"
-                  color="text.secondary"
-                  sx={{ mb: 4, lineHeight: 1.6 }}
-                >
-                  A sophisticated Exam Management System designed for scale,
-                  supporting thousands of educators in generating standardized
-                  academic content instantly.
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                  <Button variant="contained" size="large">
-                    Live Demo
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    startIcon={<TerminalIcon />}
-                  >
-                    View Docs
-                  </Button>
-                </Stack>
-              </MotionBox>
-            </Grid>
-            <Grid item size={{ xs: 12, md: 5 }}>
-              <MotionBox
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                sx={{ position: "relative" }}
+    <Box sx={{ bgcolor: "background.default", overflow: "hidden" }}>
+      {/* Simple Hero Section */}
+      <Container
+        maxWidth="lg"
+        sx={{ pt: { xs: 12, md: 12 }, pb: { xs: 6, md: 8 }, mt: 8 }}
+      >
+        <Grid container spacing={4} alignItems="center">
+          <Grid item size={{ xs: 12, md: 7 }}>
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+             <Typography
+  variant="h1"
+  sx={{
+    fontSize: { xs: "2rem", md: "3rem" },
+    fontWeight: 800,
+    mb: 2,
+  }}
+>
+  <GradientText>
+    Question Bank Management System
+  </GradientText>
+</Typography>
+              <Typography
+                color="text.secondary"
+                sx={{
+                  mb: 4,
+                  lineHeight: 1.6,
+                  maxWidth: "90%",
+                }}
               >
-                {/* Visual representation of the tech stack */}
-                <Paper
-                  sx={{
-                    p: 3,
-                    borderRadius: "20px",
-                    position: "relative",
-                    zIndex: 2,
-                  }}
+                A comprehensive platform for managing questions, generating exam
+                papers, and tracking student performance analytics.
+              </Typography>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={scrollToShowcase}
+                  sx={{ borderRadius: "12px", px: 4 }}
                 >
-                  <Typography variant="h6" sx={{ mb: 2 }}>
-                    System Architecture
-                  </Typography>
-                  <Stack spacing={1.5}>
-                    <TechBadge>
-                      <CheckCircleOutlineIcon color="success" /> React Frontend
-                      (SPA)
-                    </TechBadge>
-                    <TechBadge>
-                      <CheckCircleOutlineIcon color="success" /> Node.js Express
-                      API
-                    </TechBadge>
-                    <TechBadge>
-                      <CheckCircleOutlineIcon color="success" /> MongoDB
-                      Aggregations
-                    </TechBadge>
-                    <TechBadge>
-                      <CheckCircleOutlineIcon color="success" /> MathJax / LaTeX
-                      Engine
-                    </TechBadge>
-                  </Stack>
-                </Paper>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: -20,
-                    right: -20,
-                    width: "100%",
-                    height: "100%",
-                    bgcolor: "secondary.main",
-                    opacity: 0.1,
-                    borderRadius: "20px",
-                    zIndex: 1,
-                  }}
-                />
-              </MotionBox>
-            </Grid>
+                  View Gallery
+                </Button>
+              </Stack>
+            </MotionBox>
           </Grid>
-        </Container>
-      </Box>
 
-      <Container maxWidth="lg" sx={{ mt: -5 }}>
-        {/* Problem vs Solution Section */}
-        <Grid container spacing={4}>
-          <Grid item size={{ xs: 12, md: 6 }}>
-            <InfoCard>
-              <Typography
-                variant="h4"
-                color="error.main"
-                gutterBottom
-                sx={{ fontWeight: 700 }}
+          <Grid item size={{ xs: 12, md: 5 }}>
+            <MotionBox
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: "24px",
+                  border: `1px solid ${theme.palette.divider}`,
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}02, ${theme.palette.secondary.main}02)`,
+                }}
               >
-                The Problem
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Educational institutions struggle with fragmented question
-                storage, inconsistent paper formatting, and manual errors while
-                typing complex mathematical equations. Collaboration between
-                teachers is often unorganized and slow.
-              </Typography>
-            </InfoCard>
-          </Grid>
-          <Grid item size={{ xs: 12, md: 6 }}>
-            <InfoCard>
-              <Typography
-                variant="h4"
-                color="success.main"
-                gutterBottom
-                sx={{ fontWeight: 700 }}
-              >
-                The Solution
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                A centralized portal that digitizes the entire lifecycle: from
-                question entry via LaTeX-enabled editors to one-click PDF
-                generation. It ensures data integrity and provides a unified
-                "source of truth" for all academic content.
-              </Typography>
-            </InfoCard>
+              <Grid container spacing={2}>
+  {[
+    {
+      value: "100K+",
+      label: "Questions",
+      icon: <StorageIcon />,
+      color: theme.palette.primary.main,
+      bg: `${theme.palette.primary.main}10`,
+    },
+    {
+      value: "85%",
+      label: "Time Saved",
+      icon: <TrendingUpIcon />,
+     color: theme.palette.primary.main,
+      bg: `${theme.palette.primary.main}10`,
+    },
+    {
+      value: "80+",
+      label: "Staff Users",
+      icon: <SecurityIcon />,
+     color: theme.palette.primary.main,
+      bg: `${theme.palette.primary.main}10`,
+    },
+    {
+      value: "20+",
+      label: "System Modules",
+      icon: <PrintIcon />,
+      color: theme.palette.primary.main,
+      bg: `${theme.palette.primary.main}10`,
+    },
+  ].map((item, i) => (
+    <Grid item size={{ xs: 6 }} key={i}>
+      <MotionBox
+        whileHover={{ y: -6 }}
+        transition={{ duration: 0.2 }}
+        sx={{
+          p: 3,
+          textAlign: "center",
+          borderRadius: "18px",
+          border: `1px solid ${theme.palette.divider}`,
+          background: `linear-gradient(135deg, ${theme.palette.background.paper}, ${item.bg})`,
+        }}
+      >
+        <Avatar
+          sx={{
+            bgcolor: item.bg,
+            color: item.color,
+            width: 42,
+            height: 42,
+            mx: "auto",
+            mb: 1.5,
+          }}
+        >
+          {item.icon}
+        </Avatar>
+
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 800,
+            color: item.color,
+            lineHeight: 1,
+          }}
+        >
+          {item.value}
+        </Typography>
+
+        <Typography variant="body2" color="text.secondary">
+          {item.label}
+        </Typography>
+      </MotionBox>
+    </Grid>
+  ))}
+</Grid>
+              </Paper>
+            </MotionBox>
           </Grid>
         </Grid>
+      </Container>
 
-        {/* Detailed Workflow */}
-        <Box sx={{ my: 15 }}>
-          <Typography
-            variant="h3"
-            sx={{ textAlign: "center", mb: 8, fontWeight: 700 }}
-          >
-            How It Works
+      {/* Platform Features - Card Grid (Unchanged) */}
+      <Container maxWidth="lg" sx={{ mb: 12 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Chip label="Core Capabilities" sx={{ mb: 2 }} />
+          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+            Platform Features
           </Typography>
-          <Grid container spacing={4}>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ maxWidth: "600px", mx: "auto" }}
+          >
+            Comprehensive tools designed for efficient exam management
+          </Typography>
+        </Box>
+
+        <Grid container spacing={3}>
+          {[
+            {
+              icon: <StorageIcon sx={{ fontSize: 40 }} />,
+              title: "Question Repository",
+              desc: "Centralized storage for 100,000+ questions with subject, topic, and difficulty categorization",
+            },
+            {
+              icon: <SearchIcon sx={{ fontSize: 40 }} />,
+              title: "Advanced Filtering",
+              desc: "Powerful search and filter capabilities to quickly locate and select questions",
+            },
+            {
+              icon: <PrintIcon sx={{ fontSize: 40 }} />,
+              title: "Paper Generation",
+              desc: "Instant creation of professionally formatted exam papers with one click",
+            },
+            {
+              icon: <TrendingUpIcon sx={{ fontSize: 40 }} />,
+              title: "Performance",
+              desc: "Comprehensive insights into student performance and subject-wise trends",
+            },
+          ].map((feature, i) => (
+            <Grid item size={{ xs: 12, sm: 6, md: 3 }} key={i}>
+              <FeatureCard elevation={0}>
+                <CardContent sx={{ p: 3 }}>
+                  <Box sx={{ color: "primary.main", mb: 2 }}>
+                    {feature.icon}
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.desc}
+                  </Typography>
+                </CardContent>
+              </FeatureCard>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
+      {/* Workflow - Horizontal Timeline Style (Unchanged) */}
+      <GradientBg sx={{ py: 8, mb: 12 }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 6 }}>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+              Workflow
+            </Typography>
+          </Box>
+
+          <Grid container spacing={2}>
             {[
               {
                 step: "01",
-                title: "Structured Ingestion",
-                desc: "Questions are categorized by Bloom's Taxonomy (Easy/Medium/Hard) and Topic mapping.",
-                icon: <SettingsSuggestIcon fontSize="large" color="primary" />,
+                title: "Question Management",
+                desc: "Upload, organize, and categorize questions with metadata",
+                icon: <StorageIcon />,
               },
               {
                 step: "02",
-                title: "Smart Filtering",
-                desc: "Instant search using RegEx across thousands of questions based on tags or difficulty.",
-                icon: (
-                  <ScreenSearchDesktopIcon fontSize="large" color="primary" />
-                ),
+                title: "Paper Generation",
+                desc: "Select questions and generate formatted exam papers",
+                icon: <PrintIcon />,
               },
               {
                 step: "03",
-                title: "Dynamic Generation",
-                desc: "Logic-based paper creation ensuring no duplicate questions and adherence to marks distribution.",
-                icon: <PictureAsPdfIcon fontSize="large" color="primary" />,
+                title: "Performance Analysis",
+                desc: "Track results and analyze student performance metrics",
+                icon: <TrendingUpIcon />,
               },
-            ].map((item, index) => (
-              <Grid item size={{ xs: 12, md: 4 }} key={index}>
-                <Box sx={{ textAlign: "center", p: 2 }}>
-                  <Typography
-                    variant="h2"
-                    sx={{ opacity: 0.1, fontWeight: 900 }}
+            ].map((step, i) => (
+              <Grid item size={{ xs: 12, md: 4 }} key={i}>
+                <WorkflowStep>
+                  <Avatar
+                    sx={{
+                      bgcolor: `${theme.palette.primary.main}15`,
+                      color: "primary.main",
+                      width: 56,
+                      height: 56,
+                    }}
                   >
-                    {item.step}
-                  </Typography>
-                  <Box sx={{ mb: 2 }}>{item.icon}</Box>
-                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {item.desc}
-                  </Typography>
-                </Box>
+                    {step.icon}
+                  </Avatar>
+                  <Box>
+                    <Typography variant="caption" color="text.secondary">
+                      Step {step.step}
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      {step.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {step.desc}
+                    </Typography>
+                  </Box>
+                </WorkflowStep>
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Container>
+      </GradientBg>
 
-        {/* Screenshots Showcase */}
-        <Box sx={{ mb: 12 }}>
-          <Box sx={{ mb: 15 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-end"
-              sx={{ mb: 4 }}
-            >
-              <Box>
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                  Project Gallery
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  Visual walkthrough of the platform interface
-                </Typography>
-              </Box>
-
-              <Stack direction="row" spacing={1}>
-                <IconButton
-                  onClick={handlePrev}
-                  sx={{ border: "1px solid", borderColor: "divider" }}
-                >
-                  <ChevronLeftIcon />
-                </IconButton>
-
-                <IconButton
-                  onClick={handleNext}
-                  sx={{ border: "1px solid", borderColor: "divider" }}
-                >
-                  <ChevronRightIcon />
-                </IconButton>
-              </Stack>
-            </Stack>
-
-            <Box sx={{ position: "relative" }}>
-              <AnimatePresence mode="wait">
-                <MotionBox
-                  key={currentIndex}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <SliderImageContainer>
-                    {screenshots[currentIndex].type === "video" ? (
-                      <video
-                        src={screenshots[currentIndex].url}
-                        autoPlay
-                        muted
-                        loop
-                        controls
-                      />
-                    ) : (
-                      <img
-                        src={screenshots[currentIndex].url}
-                        alt={screenshots[currentIndex].title}
-                      />
-                    )}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        p: 4,
-                        background:
-                          "linear-gradient(transparent, rgba(0,0,0,0.85))",
-                        color: "white",
-                      }}
-                    >
-                      <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                        {screenshots[currentIndex].title}
-                      </Typography>
-
-                      <Typography variant="body1">
-                        {screenshots[currentIndex].desc}
-                      </Typography>
-                    </Box>
-                  </SliderImageContainer>
-                </MotionBox>
-              </AnimatePresence>
-
-              {/* Slider Dots */}
-              <Stack
-                direction="row"
-                spacing={1}
-                justifyContent="center"
-                sx={{ mt: 3 }}
-              >
-                {screenshots.map((_, i) => (
-                  <Box
-                    key={i}
-                    onClick={() => setCurrentIndex(i)}
-                    sx={{
-                      width: i === currentIndex ? 24 : 8,
-                      height: 8,
-                      borderRadius: 4,
-                      bgcolor: i === currentIndex ? "primary.main" : "divider",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease",
-                    }}
-                  />
-                ))}
-              </Stack>
-            </Box>
+      {/* Gallery Section - Full Width Showcase (Unchanged) */}
+      <Container ref={showcaseRef} maxWidth="lg" sx={{ mb: 12 }}>
+        {" "}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ mb: 4 }}
+        >
+          <Box>
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+              Platform Showcase
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Visual walkthrough of key features and functionality
+            </Typography>
           </Box>
-        </Box>
-        {/* Technical Highlights */}
-        <Box
+          <Stack direction="row" spacing={1}>
+            <IconButton
+              onClick={handlePrev}
+              sx={{
+                border: `1px solid ${theme.palette.divider}`,
+                borderRadius: "12px",
+                "&:hover": { bgcolor: "primary.main", color: "white" },
+              }}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+            <IconButton
+              onClick={handleNext}
+              sx={{
+                border: `1px solid ${theme.palette.divider}`,
+                borderRadius: "12px",
+                "&:hover": { bgcolor: "primary.main", color: "white" },
+              }}
+            >
+              <ChevronRightIcon />
+            </IconButton>
+          </Stack>
+        </Stack>
+        <Paper
+          elevation={0}
           sx={{
-            mt: 15,
-            p: { xs: 4, md: 8 },
-            bgcolor: "background.subtle",
-            borderRadius: "30px",
+            borderRadius: "32px",
+            overflow: "hidden",
+            border: `1px solid ${theme.palette.divider}`,
+            position: "relative",
           }}
         >
-          <Grid container spacing={6}>
-            <Grid item size={{ xs: 12, md: 6 }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
-                Technical Highlights
+          <AnimatePresence mode="wait">
+            <MotionBox
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Box
+                sx={{
+                  position: "relative",
+                  height: { xs: "300px", md: "500px" },
+                }}
+              >
+                {screenshots[currentIndex].type === "video" ? (
+                  <video
+                    src={screenshots[currentIndex].url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={screenshots[currentIndex].url}
+                    alt={screenshots[currentIndex].title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 4,
+                    background: "linear-gradient(transparent, rgba(0,0,0,0.8))",
+                    color: "white",
+                  }}
+                >
+                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                    {screenshots[currentIndex].title}
+                  </Typography>
+                  <Typography variant="body2">
+                    {screenshots[currentIndex].desc}
+                  </Typography>
+                </Box>
+              </Box>
+            </MotionBox>
+          </AnimatePresence>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="center"
+            sx={{ py: 2 }}
+          >
+            {screenshots.map((_, i) => (
+              <Box
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                sx={{
+                  width: i === currentIndex ? 24 : 8,
+                  height: 4,
+                  borderRadius: 2,
+                  bgcolor: i === currentIndex ? "primary.main" : "divider",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+              />
+            ))}
+          </Stack>
+        </Paper>
+      </Container>
+
+      {/* Problem & Solution - Split Layout (Unchanged) */}
+      <Container maxWidth="lg" sx={{ mb: 10 }}>
+        <Grid container spacing={3}>
+          <Grid item size={{ xs: 12, md: 6 }}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 4,
+                borderRadius: "32px",
+                border: `1px solid ${theme.palette.divider}`,
+                height: "100%",
+                background: `linear-gradient(135deg, ${theme.palette.error.main}02, transparent)`,
+              }}
+            >
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: 700, mb: 2, color: "error.main" }}
+              >
+                Challenges
               </Typography>
-              <List>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                Educational institutions face significant challenges with
+                traditional exam management approaches.
+              </Typography>
+              <Stack spacing={1}>
                 {[
-                  "Optimized MongoDB aggregations for fast recursive fetching of Class-Subject hierarchies.",
-                  "Custom MathJax configuration for cross-browser LaTeX consistency.",
-                  "React Context for state management across multi-step paper generation wizards.",
-                  "Role-based Protected Routes (Admin vs Teacher) using JWT.",
-                ].map((text, i) => (
-                  <ListItem key={i} disableGutters>
-                    <ListItemIcon>
-                      <CheckCircleOutlineIcon color="secondary" />
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
+                  "Fragmented question storage across multiple systems",
+                  "Time-intensive manual paper compilation and formatting",
+                  "Limited visibility into student performance trends",
+                  "Complex user access and permission management",
+                ].map((item, i) => (
+                  <Stack
+                    key={i}
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                  >
+                    <Box sx={{ color: "error.main", fontSize: "1rem" }}>•</Box>
+                    <Typography variant="body2">{item}</Typography>
+                  </Stack>
                 ))}
-              </List>
-            </Grid>
-            <Grid item size={{ xs: 12, md: 6 }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, mb: 3 }}>
-                Impact & Scale
-              </Typography>
-              <Stack spacing={3}>
-                <Box>
-                  <Typography
-                    variant="h3"
-                    color="primary.main"
-                    sx={{ fontWeight: 800 }}
-                  >
-                    10,000+
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Questions Managed Monthly
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="h3"
-                    color="secondary.main"
-                    sx={{ fontWeight: 800 }}
-                  >
-                    85%
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Reduction in Paper Creation Time
-                  </Typography>
-                </Box>
               </Stack>
-            </Grid>
+            </Paper>
           </Grid>
-        </Box>
+
+          <Grid item size={{ xs: 12, md: 6 }}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 4,
+                borderRadius: "32px",
+                border: `1px solid ${theme.palette.divider}`,
+                height: "100%",
+                background: `linear-gradient(135deg, ${theme.palette.success.main}02, transparent)`,
+              }}
+            >
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: 700, mb: 2, color: "success.main" }}
+              >
+                Solution Approach
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                A unified platform designed to streamline the complete exam
+                management lifecycle.
+              </Typography>
+              <Stack spacing={1}>
+                {[
+                  "Centralized question repository with 100K+ capacity and smart categorization",
+                  "Automated paper generation with professional formatting templates",
+                  "Real-time analytics dashboards for performance tracking",
+                  "Granular role-based access control for secure management",
+                ].map((item, i) => (
+                  <Stack
+                    key={i}
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                  >
+                    <CheckCircleIcon
+                      color="success"
+                      sx={{ fontSize: "1rem" }}
+                    />
+                    <Typography variant="body2">{item}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

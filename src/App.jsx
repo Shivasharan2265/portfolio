@@ -16,6 +16,8 @@ import LatestWorks from "./sections/LatestWorks";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
 import QuestionBank from "./sections/projects/QuestionBank";
+import SchoolERP from "./sections/projects/ShcoolERP";
+import ExamApp from "./sections/projects/ExamApp";
 
 const Home = () => {
   return (
@@ -48,6 +50,8 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/question-bank" element={<QuestionBank />} />
+          <Route path="/erp" element={<SchoolERP />} />
+          <Route path="/exam-app" element={<ExamApp />} />
         </Routes>
 
         <Footer mode={mode} />
