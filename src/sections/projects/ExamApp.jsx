@@ -17,8 +17,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Switch,
-  FormControlLabel,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
@@ -27,64 +25,60 @@ import StorageIcon from "@mui/icons-material/Storage";
 import SearchIcon from "@mui/icons-material/Search";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import SecurityIcon from "@mui/icons-material/Security";
-import { AnimatePresence } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import IconButton from "@mui/material/IconButton";
-import SchoolIcon from "@mui/icons-material/School";
 import QuizIcon from "@mui/icons-material/Quiz";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
 import WifiOffIcon from "@mui/icons-material/WifiOff";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import PsychologyIcon from "@mui/icons-material/Psychology";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
 import CreateIcon from "@mui/icons-material/Create";
 import HistoryIcon from "@mui/icons-material/History";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
-// Dummy images for gallery
+// Import your media assets
+import AIAnswer from "../../assets/AI_Answer.MP4";
+import examOnline from "../../assets/examOnline.PNG";
+import ExamPerformance from "../../assets/ExamPerformance.MP4";
+import CreateExam from "../../assets/CreateExam.PNG";
+import StartExam from "../../assets/StartExam.PNG";
+
+// Gallery slides with your specified media
 const showcaseSlides = [
   {
-    title: "Practice Questions with AI Explanation",
-    desc: "Solve practice questions and get detailed AI-powered explanations for better understanding",
-    url: "https://placehold.co/1200x800/1976d2/white?text=AI+Practice+Questions",
+    title: "Performance Analytics",
+    desc: "Overall exam performance with subject-wise and chapter-wise analysis",
+    url: ExamPerformance,
+    type: "video",
+  },
+  {
+    title: "AI-Powered Practice",
+    desc: "Get instant AI-generated answers and explanations for practice questions",
+    url: AIAnswer,
+    type: "video",
+  },
+  {
+    title: "Available Exams",
+    desc: "Browse through exams with duration and basic details in card format",
+    url: StartExam,
     type: "image",
   },
   {
-    title: "Secure Online Exam Mode",
-    desc: "Airplane mode required - auto-submits if cheating is detected",
-    url: "https://placehold.co/1200x800/2e7d32/white?text=Secure+Exam+Mode",
+    title: "Live Exam Mode",
+    desc: "Secure exam interface with timer and anti-cheating measures",
+    url: examOnline,
     type: "image",
   },
   {
     title: "Create Personalized Tests",
-    desc: "Build your own custom tests with selected topics and difficulty levels",
-    url: "https://placehold.co/1200x800/ed6c02/white?text=Create+Personalized+Tests",
-    type: "image",
-  },
-  {
-    title: "Exam Results & Analytics",
-    desc: "View detailed results for attended exams with performance metrics",
-    url: "https://placehold.co/1200x800/9c27b0/white?text=Exam+Results",
-    type: "image",
-  },
-  {
-    title: "Overall Performance Dashboard",
-    desc: "Track your strengths and weaknesses across different subjects",
-    url: "https://placehold.co/1200x800/0288d1/white?text=Performance+Dashboard",
-    type: "image",
-  },
-  {
-    title: "Dark Mode Support",
-    desc: "Comfortable viewing experience with dark mode for night studying",
-    url: "https://placehold.co/1200x800/37474f/white?text=Dark+Mode",
+    desc: "Build custom exams by selecting subjects and chapters of your choice",
+    url: CreateExam,
     type: "image",
   },
 ];
@@ -146,23 +140,84 @@ const SecurityFeatureBox = styled(Paper)(({ theme }) => ({
   textAlign: "center",
 }));
 
+// Mobile Frame Component
+const MobileFrame = ({ children, title, desc }) => {
+  const theme = useTheme();
+  
+  return (
+    <Box sx={{ position: "relative", display: "inline-block", width: "100%" }}>
+      {/* Outer Frame */}
+      <Box
+        sx={{
+          position: "relative",
+          borderRadius: "42px",
+          background: `linear-gradient(145deg, ${theme.palette.grey[800]}, ${theme.palette.grey[900]})`,
+          padding: "6px",
+          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+        }}
+      >
+        {/* Inner Frame (Screen Bezel) */}
+        <Box
+          sx={{
+            borderRadius: "36px",
+            background: "#000",
+            overflow: "hidden",
+            position: "relative",
+            boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.1)",
+          }}
+        >
+         
+
+          {/* Screen Content */}
+          <Box
+            sx={{
+              aspectRatio: "9/19.5",
+              position: "relative",
+              overflow: "hidden",
+              bgcolor: "black",
+            }}
+          >
+            {children}
+            
+            {/* Screen Content Overlay for Title (optional - removed since we have title below) */}
+          </Box>
+
+          {/* Home Indicator */}
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 8,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "120px",
+              height: "4px",
+              backgroundColor: "rgba(255,255,255,0.3)",
+              borderRadius: "2px",
+              zIndex: 10,
+            }}
+          />
+        </Box>
+      </Box>
+      
+      {/* Caption below the frame */}
+      <Box sx={{ mt: 2, textAlign: "center" }}>
+        <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 0.5 }}>
+          {title}
+        </Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ fontSize: "0.7rem" }}>
+          {desc}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
 function ExamApp() {
   const theme = useTheme();
   const showcaseRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const scrollToShowcase = () => {
     showcaseRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % showcaseSlides.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + showcaseSlides.length) % showcaseSlides.length
-    );
   };
 
   // Core modules data
@@ -213,9 +268,9 @@ function ExamApp() {
         "Comprehensive insights into your strengths, weaknesses, and overall academic progress.",
       features: [
         "Subject-wise analysis",
+        "Chapter-wise analysis",
         "Strength/weakness identification",
         "Progress tracking",
-        "Trend analysis",
       ],
       tech: ["Chart.js", "Data Visualization", "Analytics Engine"],
     },
@@ -374,6 +429,54 @@ function ExamApp() {
         </Grid>
       </Container>
 
+      {/* Grid Showcase - Mobile Design with Frames */}
+      <Container ref={showcaseRef} maxWidth="xl" sx={{ mb: 12 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+            App Showcase
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Visual walkthrough of key mobile features in realistic phone frames
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          {showcaseSlides.map((slide, index) => (
+            <Grid item size={{ xs: 12, sm: 6, md: 2.4 }} key={index}>
+              <MotionBox whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
+                <MobileFrame title={slide.title} desc={slide.desc}>
+                  {slide.type === "video" ? (
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    >
+                      <source src={slide.url} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img
+                      src={slide.url}
+                      alt={slide.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+                </MobileFrame>
+              </MotionBox>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
       {/* Core Modules Section */}
       <Container maxWidth="lg" sx={{ mb: 12 }}>
         <Box sx={{ textAlign: "center", mb: 6 }}>
@@ -498,123 +601,138 @@ function ExamApp() {
         </Container>
       </GradientBg>
 
-   
+      {/* Performance Analytics Preview Section */}
+      <Container maxWidth="lg" sx={{ mb: 12 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+            Smart Performance Analytics
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Subject-wise and chapter-wise analysis to track your progress
+          </Typography>
+        </Box>
 
-     
-      {/* Gallery Section */}
-      <Container ref={showcaseRef} maxWidth="lg" sx={{ mb: 12 }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ mb: 4 }}
-        >
-          <Box>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
-              App Showcase
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Visual walkthrough of key features and functionality
-            </Typography>
-          </Box>
-          <Stack direction="row" spacing={1}>
-            <IconButton
-              onClick={handlePrev}
+        <Grid container spacing={3}>
+          <Grid item size={{ xs: 12, md: 6 }}>
+            <Paper
+              elevation={0}
               sx={{
+                p: 4,
+                borderRadius: "24px",
                 border: `1px solid ${theme.palette.divider}`,
-                borderRadius: "12px",
-                "&:hover": { bgcolor: "primary.main", color: "white" },
+                height: "100%",
               }}
             >
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
+              <Stack direction="row" spacing={2} alignItems="center" mb={3}>
+                <TrendingUpIcon sx={{ fontSize: 40, color: "success.main" }} />
+                <Typography variant="h5" fontWeight={700}>
+                  Strengths
+                </Typography>
+              </Stack>
+              <List>
+                {[
+                  { subject: "Mathematics", score: "92%", level: "Excellent" },
+                  { subject: "Physics", score: "88%", level: "Very Good" },
+                  { subject: "Chemistry", score: "85%", level: "Good" },
+                ].map((item, i) => (
+                  <ListItem key={i} sx={{ px: 0 }}>
+                    <ListItemText
+                      primary={item.subject}
+                      secondary={`Score: ${item.score}`}
+                    />
+                    <Chip
+                      label={item.level}
+                      size="small"
+                      color="success"
+                      sx={{ borderRadius: "12px" }}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+
+          <Grid item size={{ xs: 12, md: 6 }}>
+            <Paper
+              elevation={0}
               sx={{
+                p: 4,
+                borderRadius: "24px",
                 border: `1px solid ${theme.palette.divider}`,
-                borderRadius: "12px",
-                "&:hover": { bgcolor: "primary.main", color: "white" },
+                height: "100%",
               }}
             >
-              <ChevronRightIcon />
-            </IconButton>
-          </Stack>
-        </Stack>
+              <Stack direction="row" spacing={2} alignItems="center" mb={3}>
+                <TrendingDownIcon sx={{ fontSize: 40, color: "warning.main" }} />
+                <Typography variant="h5" fontWeight={700}>
+                  Areas for Improvement
+                </Typography>
+              </Stack>
+              <List>
+                {[
+                  { subject: "Biology", score: "68%", level: "Needs Attention" },
+                  { subject: "English Literature", score: "72%", level: "Can Improve" },
+                  { subject: "Computer Science", score: "75%", level: "Moderate" },
+                ].map((item, i) => (
+                  <ListItem key={i} sx={{ px: 0 }}>
+                    <ListItemText
+                      primary={item.subject}
+                      secondary={`Score: ${item.score}`}
+                    />
+                    <Chip
+                      label={item.level}
+                      size="small"
+                      color="warning"
+                      sx={{ borderRadius: "12px" }}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+        </Grid>
+
+        {/* Overall Performance Card */}
         <Paper
           elevation={0}
           sx={{
-            borderRadius: "32px",
-            overflow: "hidden",
+            mt: 4,
+            p: 4,
+            borderRadius: "24px",
             border: `1px solid ${theme.palette.divider}`,
-            position: "relative",
+            background: `linear-gradient(135deg, ${theme.palette.primary.main}05, ${theme.palette.secondary.main}05)`,
           }}
         >
-          <AnimatePresence mode="wait">
-            <MotionBox
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Box
-                sx={{
-                  position: "relative",
-                  height: { xs: "300px", md: "540px" },
-                }}
-              >
-                <img
-                  src={showcaseSlides[currentIndex].url}
-                  alt={showcaseSlides[currentIndex].title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    p: 4,
-                    background: "linear-gradient(transparent, rgba(0,0,0,0.8))",
-                    color: "white",
-                  }}
-                >
-                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                    {showcaseSlides[currentIndex].title}
-                  </Typography>
-                  <Typography variant="body2">
-                    {showcaseSlides[currentIndex].desc}
-                  </Typography>
+          <Grid container spacing={3} alignItems="center">
+            <Grid item size={{ xs: 12, md: 4 }}>
+              <Typography variant="h4" fontWeight={800} textAlign="center">
+                <GradientText>82%</GradientText>
+              </Typography>
+              <Typography variant="body2" color="text.secondary" textAlign="center">
+                Overall Performance
+              </Typography>
+            </Grid>
+            <Grid item size={{ xs: 12, md: 8 }}>
+              <Stack direction="row" spacing={2} justifyContent="space-around">
+                <Box textAlign="center">
+                  <Typography variant="h6" fontWeight={700}>24</Typography>
+                  <Typography variant="caption" color="text.secondary">Exams Taken</Typography>
                 </Box>
-              </Box>
-            </MotionBox>
-          </AnimatePresence>
-
-          <Stack
-            direction="row"
-            spacing={1}
-            justifyContent="center"
-            sx={{ py: 2 }}
-          >
-            {showcaseSlides.map((_, i) => (
-              <Box
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                sx={{
-                  width: i === currentIndex ? 24 : 8,
-                  height: 4,
-                  borderRadius: 2,
-                  bgcolor: i === currentIndex ? "primary.main" : "divider",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-              />
-            ))}
-          </Stack>
+                <Box textAlign="center">
+                  <Typography variant="h6" fontWeight={700}>18</Typography>
+                  <Typography variant="caption" color="text.secondary">Practice Tests</Typography>
+                </Box>
+                <Box textAlign="center">
+                  <Typography variant="h6" fontWeight={700}>15%</Typography>
+                  <Typography variant="caption" color="text.secondary">Improvement</Typography>
+                </Box>
+                <Box textAlign="center">
+                  <Typography variant="h6" fontWeight={700}>Top 10%</Typography>
+                  <Typography variant="caption" color="text.secondary">Rank</Typography>
+                </Box>
+              </Stack>
+            </Grid>
+          </Grid>
         </Paper>
       </Container>
 
@@ -648,7 +766,7 @@ function ExamApp() {
                   "Exam security concerns and cheating vulnerabilities",
                   "No personalized test creation based on learning needs",
                   "Lack of detailed performance analytics and progress tracking",
-                  "No visibility into subject-wise strengths and weaknesses",
+                  "No visibility into subject-wise and chapter-wise strengths",
                 ].map((item, i) => (
                   <ListItem key={i} disableGutters sx={{ py: 0.5 }}>
                     <ListItemIcon sx={{ minWidth: 32 }}>
@@ -690,9 +808,9 @@ function ExamApp() {
                 {[
                   "AI-powered explanations for practice questions",
                   "Secure exam mode with airplane mode requirement and auto-submit",
-                  "Create personalized tests with custom topics and difficulty",
+                  "Create personalized tests with custom subjects and chapters",
                   "Complete exam history with detailed results",
-                  "Smart performance analytics identifying strengths and weaknesses",
+                  "Smart performance analytics with subject & chapter-wise insights",
                   "Dark mode support for comfortable studying",
                 ].map((item, i) => (
                   <ListItem key={i} disableGutters sx={{ py: 0.5 }}>
@@ -711,6 +829,63 @@ function ExamApp() {
               </List>
             </Paper>
           </Grid>
+        </Grid>
+      </Container>
+
+      {/* Exam History & Results Section */}
+      <Container maxWidth="lg" sx={{ mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+            <HistoryIcon sx={{ fontSize: 40, verticalAlign: "middle", mr: 1 }} />
+            Exam History & Results
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Track all your attended exams and performance metrics
+          </Typography>
+        </Box>
+
+        <Grid container spacing={2}>
+          {[
+            { name: "Mathematics Final", date: "March 15, 2026", score: "92/100", grade: "A" },
+            { name: "Physics Midterm", date: "March 10, 2026", score: "85/100", grade: "B+" },
+            { name: "Chemistry Quiz", date: "March 5, 2026", score: "78/100", grade: "B" },
+            { name: "English Literature", date: "February 28, 2026", score: "88/100", grade: "A-" },
+          ].map((exam, i) => (
+            <Grid item size={{ xs: 12 }} key={i}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  borderRadius: "16px",
+                  border: `1px solid ${theme.palette.divider}`,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Box>
+                  <Typography variant="subtitle1" fontWeight={600}>
+                    {exam.name}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {exam.date}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Chip
+                    label={`Score: ${exam.score}`}
+                    sx={{ mr: 1, borderRadius: "12px" }}
+                  />
+                  <Chip
+                    label={`Grade: ${exam.grade}`}
+                    color="primary"
+                    sx={{ borderRadius: "12px" }}
+                  />
+                </Box>
+              </Paper>
+            </Grid>
+          ))}
         </Grid>
       </Container>
 
@@ -759,8 +934,6 @@ function ExamApp() {
           </Grid>
         </Container>
       </GradientBg>
-
-     
     </Box>
   );
 }
