@@ -19,7 +19,6 @@
     "@react-three/fiber": "^9.5.0",
     "@types/three": "^0.183.1",
     "framer-motion": "^12.34.3",
-    "framer-motion-3d": "^12.4.13",
     "lucide-react": "^0.575.0",
     "react": "^19.2.4",
     "react-bits": "^1.0.5",
