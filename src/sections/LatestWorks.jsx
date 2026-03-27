@@ -65,14 +65,6 @@ const projects = [
     tech: ['React', 'Node.js', 'MySQL', 'MathJax'],
     demo: '/question-bank',
     code: '#'
-  },
-  {
-    title: 'School ERP',
-    description: 'Complete school management system handling students, attendance, fees, reports, and administrative workflows.',
-    image: 'https://via.placeholder.com/600x400/419D78/FFFFFF?text=School+ERP',
-    tech: ['React', 'Express', 'MongoDB', 'MUI'],
-    demo: '/erp',
-    code: '#'
   }
 ];
 
