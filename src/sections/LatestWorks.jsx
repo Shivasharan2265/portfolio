@@ -17,6 +17,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from 'react-router-dom';
 
 // Styled Components
 const ProjectCard = styled(Card)(({ theme }) => ({
@@ -50,57 +51,34 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
 
 const projects = [
   {
-    title: 'Bamboo - Ecommerce',
-    description: 'A premium lifestyle e-commerce platform built with MERN stack featuring seamless checkout.',
-    image: 'https://via.placeholder.com/600x400/2D3047/FFFFFF?text=Bamboo+Store',
-    tech: ['React', 'Node.js', 'Redux'],
-    demo: '#',
-    code: '#'
-  },
-  {
-    title: 'Question Bank Portal',
-    description: 'Internal management system for educational institutions to generate and manage dynamic test papers.',
-    image: 'https://via.placeholder.com/600x400/E0A458/FFFFFF?text=Question+Bank',
-    tech: ['Next.js', 'MySQL', 'Material UI'],
-    demo: '#',
-    code: '#'
-  },
-  {
-    title: 'School ERP System',
-    description: 'Comprehensive enterprise resource planning software for schools covering attendance to fee management.',
-    image: 'https://via.placeholder.com/600x400/419D78/FFFFFF?text=School+ERP',
-    tech: ['React', 'Express', 'MongoDB'],
-    demo: '#',
-    code: '#'
-  },
-  {
-    title: 'Online Exam App',
-    description: 'Cross-platform mobile application for real-time competitive examinations with proctoring features.',
+    title: 'Exam App',
+    description: 'Advanced online examination platform with real-time test monitoring, OMR support, and performance analytics.',
     image: 'https://via.placeholder.com/600x400/2D3047/FFFFFF?text=Exam+App',
-    tech: ['React Expo', 'Firebase', 'Native Base'],
-    demo: '#',
+    tech: ['React', 'Firebase', 'Realtime DB', 'MUI'],
+    demo: '/exam-app',
     code: '#'
   },
   {
-    title: 'AI Learn',
-    description: 'Adaptive learning platform using AI to personalize educational content based on student performance.',
-    image: 'https://via.placeholder.com/600x400/CBA77C/FFFFFF?text=AI+Learn',
-    tech: ['Python', 'React', 'OpenAI API'],
-    demo: '#',
+    title: 'Question Bank',
+    description: 'Dynamic question bank system to create, manage, and generate exam papers with filters, templates, and LaTeX support.',
+    image: 'https://via.placeholder.com/600x400/E0A458/FFFFFF?text=Question+Bank',
+    tech: ['React', 'Node.js', 'MySQL', 'MathJax'],
+    demo: '/question-bank',
     code: '#'
   },
   {
-    title: 'CA Management CRM',
-    description: 'Client relationship management tool tailored for Chartered Accountants to track audits and filings.',
-    image: 'https://via.placeholder.com/600x400/1A1A1A/FFFFFF?text=CA+CRM',
-    tech: ['MERN Stack', 'Socket.io', 'AWS'],
-    demo: '#',
+    title: 'School ERP',
+    description: 'Complete school management system handling students, attendance, fees, reports, and administrative workflows.',
+    image: 'https://via.placeholder.com/600x400/419D78/FFFFFF?text=School+ERP',
+    tech: ['React', 'Express', 'MongoDB', 'MUI'],
+    demo: '/erp',
     code: '#'
-  },
+  }
 ];
 
 function LatestWorks() {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const settings = {
     dots: true,
@@ -181,7 +159,7 @@ function LatestWorks() {
                         size="small"
                         color="primary"
                         startIcon={<LaunchIcon />}
-                        href={project.demo}
+                      onClick={() => navigate(project.demo)}
                       >
                         Live
                       </Button>
