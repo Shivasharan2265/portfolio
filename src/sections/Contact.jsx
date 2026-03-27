@@ -215,9 +215,9 @@ function Contact() {
                   {
                     icon: EmailIcon,
                     label: "Email",
-                    val: "shiva.dev@email.com",
+                    val: "shivasharan2265@gmail.com",
                   },
-                  { icon: PhoneIcon, label: "Phone", val: "+91 98765 43210" },
+                  { icon: PhoneIcon, label: "Phone", val: "+91 6361312004" },
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
