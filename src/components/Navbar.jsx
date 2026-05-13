@@ -92,7 +92,7 @@ function Navbar() {
     <StyledAppBar position="fixed" scrolled={scrolled ? 1 : 0} elevation={0}>
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-          <Logo variant="h4" component="a" href="#">
+          <Logo variant="h4" component="a" href="/">
             Portfolio
           </Logo>
 

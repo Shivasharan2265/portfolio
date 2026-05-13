@@ -601,141 +601,7 @@ function ExamApp() {
         </Container>
       </GradientBg>
 
-      {/* Performance Analytics Preview Section */}
-      <Container maxWidth="lg" sx={{ mb: 12 }}>
-        <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-            Smart Performance Analytics
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Subject-wise and chapter-wise analysis to track your progress
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3}>
-          <Grid item size={{ xs: 12, md: 6 }}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 4,
-                borderRadius: "24px",
-                border: `1px solid ${theme.palette.divider}`,
-                height: "100%",
-              }}
-            >
-              <Stack direction="row" spacing={2} alignItems="center" mb={3}>
-                <TrendingUpIcon sx={{ fontSize: 40, color: "success.main" }} />
-                <Typography variant="h5" fontWeight={700}>
-                  Strengths
-                </Typography>
-              </Stack>
-              <List>
-                {[
-                  { subject: "Mathematics", score: "92%", level: "Excellent" },
-                  { subject: "Physics", score: "88%", level: "Very Good" },
-                  { subject: "Chemistry", score: "85%", level: "Good" },
-                ].map((item, i) => (
-                  <ListItem key={i} sx={{ px: 0 }}>
-                    <ListItemText
-                      primary={item.subject}
-                      secondary={`Score: ${item.score}`}
-                    />
-                    <Chip
-                      label={item.level}
-                      size="small"
-                      color="success"
-                      sx={{ borderRadius: "12px" }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-
-          <Grid item size={{ xs: 12, md: 6 }}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 4,
-                borderRadius: "24px",
-                border: `1px solid ${theme.palette.divider}`,
-                height: "100%",
-              }}
-            >
-              <Stack direction="row" spacing={2} alignItems="center" mb={3}>
-                <TrendingDownIcon sx={{ fontSize: 40, color: "warning.main" }} />
-                <Typography variant="h5" fontWeight={700}>
-                  Areas for Improvement
-                </Typography>
-              </Stack>
-              <List>
-                {[
-                  { subject: "Biology", score: "68%", level: "Needs Attention" },
-                  { subject: "English Literature", score: "72%", level: "Can Improve" },
-                  { subject: "Computer Science", score: "75%", level: "Moderate" },
-                ].map((item, i) => (
-                  <ListItem key={i} sx={{ px: 0 }}>
-                    <ListItemText
-                      primary={item.subject}
-                      secondary={`Score: ${item.score}`}
-                    />
-                    <Chip
-                      label={item.level}
-                      size="small"
-                      color="warning"
-                      sx={{ borderRadius: "12px" }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
-
-        {/* Overall Performance Card */}
-        <Paper
-          elevation={0}
-          sx={{
-            mt: 4,
-            p: 4,
-            borderRadius: "24px",
-            border: `1px solid ${theme.palette.divider}`,
-            background: `linear-gradient(135deg, ${theme.palette.primary.main}05, ${theme.palette.secondary.main}05)`,
-          }}
-        >
-          <Grid container spacing={3} alignItems="center">
-            <Grid item size={{ xs: 12, md: 4 }}>
-              <Typography variant="h4" fontWeight={800} textAlign="center">
-                <GradientText>82%</GradientText>
-              </Typography>
-              <Typography variant="body2" color="text.secondary" textAlign="center">
-                Overall Performance
-              </Typography>
-            </Grid>
-            <Grid item size={{ xs: 12, md: 8 }}>
-              <Stack direction="row" spacing={2} justifyContent="space-around">
-                <Box textAlign="center">
-                  <Typography variant="h6" fontWeight={700}>24</Typography>
-                  <Typography variant="caption" color="text.secondary">Exams Taken</Typography>
-                </Box>
-                <Box textAlign="center">
-                  <Typography variant="h6" fontWeight={700}>18</Typography>
-                  <Typography variant="caption" color="text.secondary">Practice Tests</Typography>
-                </Box>
-                <Box textAlign="center">
-                  <Typography variant="h6" fontWeight={700}>15%</Typography>
-                  <Typography variant="caption" color="text.secondary">Improvement</Typography>
-                </Box>
-                <Box textAlign="center">
-                  <Typography variant="h6" fontWeight={700}>Top 10%</Typography>
-                  <Typography variant="caption" color="text.secondary">Rank</Typography>
-                </Box>
-              </Stack>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Container>
-
+    
       {/* Problem & Solution Section */}
       <Container maxWidth="lg" sx={{ mb: 12 }}>
         <Grid container spacing={4}>
@@ -832,63 +698,7 @@ function ExamApp() {
         </Grid>
       </Container>
 
-      {/* Exam History & Results Section */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-            <HistoryIcon sx={{ fontSize: 40, verticalAlign: "middle", mr: 1 }} />
-            Exam History & Results
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Track all your attended exams and performance metrics
-          </Typography>
-        </Box>
-
-        <Grid container spacing={2}>
-          {[
-            { name: "Mathematics Final", date: "March 15, 2026", score: "92/100", grade: "A" },
-            { name: "Physics Midterm", date: "March 10, 2026", score: "85/100", grade: "B+" },
-            { name: "Chemistry Quiz", date: "March 5, 2026", score: "78/100", grade: "B" },
-            { name: "English Literature", date: "February 28, 2026", score: "88/100", grade: "A-" },
-          ].map((exam, i) => (
-            <Grid item size={{ xs: 12 }} key={i}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 2,
-                  borderRadius: "16px",
-                  border: `1px solid ${theme.palette.divider}`,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Box>
-                  <Typography variant="subtitle1" fontWeight={600}>
-                    {exam.name}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {exam.date}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Chip
-                    label={`Score: ${exam.score}`}
-                    sx={{ mr: 1, borderRadius: "12px" }}
-                  />
-                  <Chip
-                    label={`Grade: ${exam.grade}`}
-                    color="primary"
-                    sx={{ borderRadius: "12px" }}
-                  />
-                </Box>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
+     
       {/* Technical Stack Section */}
       <GradientBg sx={{ py: 8, mb: 6 }}>
         <Container maxWidth="lg">
@@ -906,7 +716,7 @@ function ExamApp() {
               "React Native",
               "Expo Framework",
               "React Navigation",
-              "Redux Toolkit",
+          
               "OpenAI API Integration",
               "Async Storage",
               "Chart.js / Victory Native",

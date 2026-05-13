@@ -24,19 +24,31 @@ const SkillCard = styled(motion(Paper))(({ theme }) => ({
       theme.palette.mode === "dark" ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.1)"
     }`,
   },
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2),
+  },
 }));
 
-const SkillLogo = styled("img")({
+const SkillLogo = styled("img")(({ theme }) => ({
   width: "60px",
   height: "60px",
   marginBottom: "16px",
   objectFit: "contain",
-});
+  [theme.breakpoints.down("sm")]: {
+    width: "40px",
+    height: "40px",
+    marginBottom: "10px",
+  },
+}));
 
 const DotContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: "6px",
   marginTop: theme.spacing(2),
+  [theme.breakpoints.down("sm")]: {
+    gap: "4px",
+    marginTop: theme.spacing(1.5),
+  },
 }));
 
 const SkillDot = styled(Box, {
@@ -46,8 +58,12 @@ const SkillDot = styled(Box, {
   height: "10px",
   borderRadius: "50%",
   backgroundColor: active 
-    ? "#FF6B35" // The orange color from your screenshot
+    ? "#FF6B35"
     : theme.palette.mode === "dark" ? "#333" : "#D1D5DB",
+  [theme.breakpoints.down("sm")]: {
+    width: "7px",
+    height: "7px",
+  },
 }));
 
 const SectionHeader = styled(Typography)(({ theme }) => ({
@@ -58,17 +74,33 @@ const SectionHeader = styled(Typography)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "2rem",
+    marginBottom: theme.spacing(4),
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "1.75rem",
+    marginBottom: theme.spacing(3),
+  },
+}));
+
+const SkillName = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  color: "text.primary",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "0.85rem",
+  },
 }));
 
 const skillsData = [
   { name: "React js", icon: "react", level: 5 },
-  { name: "Node js", icon: "nodedotjs", level: 5 },
-  { name: "Express js", icon: "express", level: 4 },
-  { name: "Mongo DB", icon: "mongodb", level: 4 },
-  { name: "React Expo", icon: "expo", level: 5 },
+  // { name: "Node js", icon: "nodedotjs", level: 5 },
+  // { name: "Express js", icon: "express", level: 4 },
+  // { name: "Mongo DB", icon: "mongodb", level: 4 },
+  { name: "React Expo", icon: "expo", level: 3 },
   { name: "Material UI", icon: "mui", level: 5 },
   { name: "Git hub", icon: "github", level: 4 },
-  { name: "My SQL", icon: "mysql", level: 4 },
+  // { name: "My SQL", icon: "mysql", level: 4 },
 ];
 
 const TechnicalSkills = () => {
@@ -77,7 +109,7 @@ const TechnicalSkills = () => {
       component="section"
       id="skills"
       sx={{
-        py: { xs: 8, md: 12 },
+        py: { xs: 6, md: 12 },
         backgroundColor: (theme) => theme.palette.background.default,
       }}
     >
@@ -91,9 +123,9 @@ const TechnicalSkills = () => {
           <SectionHeader variant="h2">Technical Skills</SectionHeader>
         </motion.div>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
           {skillsData.map((skill, index) => (
-            <Grid item   size={{ xs: 12, sm: 6, md: 3 }} key={skill.name}>
+            <Grid item size={{xs:6, sm: 6, md: 3}} key={skill.name}>
               <SkillCard
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -106,9 +138,9 @@ const TechnicalSkills = () => {
                   }`}
                   alt={skill.name}
                 />
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "text.primary" }}>
+                <SkillName variant="h6">
                   {skill.name}
-                </Typography>
+                </SkillName>
                 
                 {/* Skill Rating Dots from Screenshot */}
                 <DotContainer>

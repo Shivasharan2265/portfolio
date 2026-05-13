@@ -214,15 +214,15 @@ const techStackVariants = {
 
 function About() {
   const techStack = {
-    frontend: ["React.js", "React Expo", "JavaScript", "Redux", "Material-UI"],
-    backend: ["Node.js", "Express.js", "REST APIs", "Socket.io"],
-    database: ["MongoDB", "MySql"],
-    devops: ["Docker", "AWS", "Git", "CI/CD", "Vercel", "Netlify"],
+    frontend: ["React.js", "React Expo", "JavaScript", "Material-UI"],
+    backend: ["REST APIs", "Socket.io"],
+   
+    devops: ["Render", "Git"],
   };
 
   const quickStats = [
-    { label: "Years Experience", value: "1+", icon: "🚀" },
-    { label: "Projects Completed", value: "25+", icon: "💻" },
+    { label: "Years Experience", value: "2+", icon: "🚀" },
+    { label: "Projects Completed", value: "10+", icon: "💻" },
     { label: "Coffee Consumed", value: "∞", icon: "☕" },
   ];
 
@@ -263,7 +263,7 @@ function About() {
                   display: "block",
                 }}
               >
-                👋 Hello, I'm
+                👋 Hello, I'm Shivasharan
               </MotionTypography>
 
               <MotionTypography
@@ -285,7 +285,7 @@ function About() {
                   backgroundClip: "text",
                 }}
               >
-                MERN Stack Developer
+                React Developer
               </MotionTypography>
             </MotionBox>
 
@@ -299,10 +299,10 @@ function About() {
                 lineHeight: 1.8,
               }}
             >
-              I'm a passionate Full-Stack Developer with a strong interest in
-              building modern, user-friendly web applications. I enjoy bridging the gap between design,
-              functionality, and technology to create seamless digital
-              experiences.
+              I'm a passionate React Developer with a strong interest in
+              building modern, user-friendly web applications. I enjoy bridging
+              the gap between design, functionality, and technology to create
+              seamless digital experiences.
             </MotionTypography>
 
             {/* Tech Stack Categories */}
@@ -358,11 +358,11 @@ function About() {
                   >
                     <StorageIcon color="primary" fontSize="small" />
                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                      Backend & Database
+                      Backend 
                     </Typography>
                   </Box>
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                    {[...techStack.backend, ...techStack.database].map(
+                    {[...techStack.backend].map(
                       (tech, index) => (
                         <MotionChip
                           key={tech}
@@ -386,7 +386,7 @@ function About() {
             {/* Quick Stats - Compact Design */}
             <Grid container spacing={2} sx={{ mb: 3 }}>
               {quickStats.map((stat, index) => (
-                <Grid item xs={4} key={index}>
+                <Grid item size={{ xs: 4 }} key={index}>
                   <MotionBox
                     custom={index}
                     variants={statCardVariants}

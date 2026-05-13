@@ -7,6 +7,7 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
+  Grid,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
@@ -22,8 +23,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import SchoolIcon from "@mui/icons-material/School";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { motion } from "framer-motion";
-import BeingMashServices from "../assets/bms.png"
-import Sharnbasva from "../assets/sb.png"
+import BeingMashServices from "../assets/bms.png";
+import Sharnbasva from "../assets/sb.png";
 
 const MotionTimelineItem = motion(TimelineItem);
 
@@ -44,6 +45,9 @@ const ExperienceCard = styled(Paper)(({ theme }) => ({
     borderColor: theme.palette.secondary.main,
     boxShadow: theme.shadows[2],
   },
+  [theme.breakpoints.down("md")]: {
+    padding: theme.spacing(2),
+  },
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -54,28 +58,31 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "2rem",
+  },
 }));
 
 const experiences = [
   {
-    period: "Dec 2024 - Present",
+    period: "Aug 2024 - Present",
     title: "React Developer",
-    company: "BeingMash Services",
+    company: "BeingMash Services Pvt Ltd",
     location: "Karnataka, India",
     type: "Full-time",
     icon: <WorkIcon />,
     description:
-      "Leading design initiatives for enterprise products, managing a team of 5 designers, and establishing design systems.",
+      "Built web applications such as ERP systems, online exam platforms, and question bank systems with AI-based explanation features. Familiar with REST APIs, with a focus on clean and efficient code.",
   },
   {
-    period: "Feb 2024 - Dec 2024",
+    period: "Feb 2024 - Jul 2024",
     title: "Full-stack Developer Intern",
-    company: "BeingMash Services",
+    company: "BeingMash Services Pvt Ltd",
     location: "Karnataka, India",
     type: "Internship",
     icon: <WorkIcon />,
     description:
-      "Designed and shipped multiple features for B2B SaaS products, resulting in 40% increase in user engagement.",
+      "Full Stack Developer Intern with experience in React.js. Assisted in developing web applications and worked with REST APIs, MongoDB.",
   },
   {
     period: "2020 - 2024",
@@ -85,7 +92,7 @@ const experiences = [
     type: "Education",
     icon: <SchoolIcon />,
     description:
-      "Focused on Embedded Systems and Software Engineering fundamentals. Graduated with a strong foundation in problem-solving.",
+      "Focused on Software Engineering fundamentals. Graduated with a strong foundation in problem-solving.",
   },
 ];
 
@@ -98,12 +105,12 @@ function Experience() {
       component="section"
       id="experience"
       sx={{
-        py: { xs: 8, md: 12 },
+        py: { xs: 6, md: 12 },
         backgroundColor: "background.default",
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 5, md: 8 } }}>
           <SectionTitle variant="h2">Experience & Education</SectionTitle>
           <Typography
             variant="body1"
@@ -112,6 +119,8 @@ function Experience() {
               color: "text.secondary",
               maxWidth: "600px",
               mx: "auto",
+              px: { xs: 2, md: 0 },
+              fontSize: { xs: "0.9rem", md: "1rem" },
             }}
           >
             My professional journey and academic background
@@ -126,6 +135,11 @@ function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
+              sx={{
+                "&:before": {
+                  display: isMobile ? "none" : "block",
+                },
+              }}
             >
               {!isMobile && (
                 <TimelineOppositeContent
@@ -147,7 +161,7 @@ function Experience() {
                 <TimelineDot
                   sx={{
                     bgcolor: "primary.main",
-                    p: 1.5,
+                    p: { xs: 1, md: 1.5 },
                     boxShadow: `0 0 0 4px ${theme.palette.background.default}`,
                   }}
                 >
@@ -158,64 +172,46 @@ function Experience() {
                 )}
               </TimelineSeparator>
 
-              <TimelineContent sx={{ py: "12px", px: 2 }}>
+              <TimelineContent sx={{ py: "12px", px: { xs: 1, md: 2 } }}>
                 <ExperienceCard elevation={0}>
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignItems: "flex-start",
                       mb: 1,
                       gap: 2,
                       flexWrap: "wrap",
+                      flexDirection: { xs: "column", sm: "row" },
                     }}
                   >
-                    {index === 1 ? (
-                      <>
-                        {/* LEFT SIDE (Internship) */}
-                        <Chip
-                          label={exp.type}
-                          size="small"
-                          sx={{
-                            backgroundColor:
-                              theme.palette.mode === "dark"
-                                ? "rgba(203, 167, 124, 0.1)"
-                                : "rgba(45, 48, 71, 0.05)",
-                            color: "secondary.main",
-                            fontWeight: 600,
-                            borderRadius: "6px",
-                          }}
-                        />
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontWeight: 700,
+                        fontSize: { xs: "1.25rem", sm: "1.5rem" },
+                        order: { xs: 1, sm: index === 1 ? 2 : 1 },
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                    >
+                      {exp.title}
+                    </Typography>
 
-                        {/* RIGHT SIDE (Title) */}
-                        <Typography
-                          variant="h5"
-                          sx={{ fontWeight: 700, textAlign: "right" }}
-                        >
-                          {exp.title}
-                        </Typography>
-                      </>
-                    ) : (
-                      <>
-                        <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                          {exp.title}
-                        </Typography>
-
-                        <Chip
-                          label={exp.type}
-                          size="small"
-                          sx={{
-                            backgroundColor:
-                              theme.palette.mode === "dark"
-                                ? "rgba(203, 167, 124, 0.1)"
-                                : "rgba(45, 48, 71, 0.05)",
-                            color: "secondary.main",
-                            fontWeight: 600,
-                            borderRadius: "6px",
-                          }}
-                        />
-                      </>
-                    )}
+                    <Chip
+                      label={exp.type}
+                      size="small"
+                      sx={{
+                        backgroundColor:
+                          theme.palette.mode === "dark"
+                            ? "rgba(203, 167, 124, 0.1)"
+                            : "rgba(45, 48, 71, 0.05)",
+                        color: "secondary.main",
+                        fontWeight: 600,
+                        borderRadius: "6px",
+                        order: { xs: 2, sm: index === 1 ? 1 : 2 },
+                        alignSelf: { xs: "flex-start", sm: "auto" },
+                      }}
+                    />
                   </Box>
 
                   {isMobile && (
@@ -223,7 +219,7 @@ function Experience() {
                       variant="caption"
                       color="text.secondary"
                       fontWeight={600}
-                      sx={{ display: "block", mb: 1 }}
+                      sx={{ display: "block", mb: 1.5, mt: 0.5 }}
                     >
                       {exp.period}
                     </Typography>
@@ -231,7 +227,12 @@ function Experience() {
 
                   <Typography
                     variant="subtitle2"
-                    sx={{ color: "primary.light", fontWeight: 400, mb: 1 }}
+                    sx={{
+                      color: "primary.light",
+                      fontWeight: 500,
+                      mb: 1,
+                      fontSize: { xs: "0.85rem", md: "0.9rem" },
+                    }}
                   >
                     {exp.company}
                   </Typography>
@@ -240,7 +241,7 @@ function Experience() {
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: index === 1 ? "flex-end" : "flex-start",
+                      justifyContent: "flex-start",
                       mb: 2,
                     }}
                   >
@@ -259,7 +260,10 @@ function Experience() {
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ lineHeight: 1.6 }}
+                    sx={{
+                      lineHeight: 1.6,
+                      fontSize: { xs: "0.85rem", md: "0.875rem" },
+                    }}
                   >
                     {exp.description}
                   </Typography>

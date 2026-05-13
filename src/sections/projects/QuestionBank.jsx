@@ -34,12 +34,98 @@ import rec2 from "../../assets/rec2.mov";
 import rec3 from "../../assets/rec3.mov";
 import rec4 from "../../assets/rec4.mov";
 
+
+
+
 // Styled Components
 const MotionBox = motion(Box);
 const GradientBg = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.primary.main}08 0%, ${theme.palette.secondary.main}08 100%)`,
   borderRadius: "48px",
 }));
+
+// --- Paste this right above "function QuestionBank() {" ---
+
+const LaptopFrame = ({ children }) => {
+  
+  
+  return (
+    <Box sx={{ width: "100%", position: "relative", maxWidth: "800px", mx: "auto" }}>
+      
+      {/* Screen */}
+      <Box
+        sx={{
+          position: "relative",
+          borderRadius: "24px 24px 0 0",
+          background: "#111",
+          padding: "14px",
+          border: "1px solid #333",
+          boxShadow: "0 30px 60px rgba(0,0,0,0.4)",
+          zIndex: 2,
+        }}
+      >
+        <Box
+          sx={{
+            borderRadius: "4px",
+            background: "#000",
+            overflow: "hidden",
+            position: "relative",
+            aspectRatio: "17/10",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {children}
+        </Box>
+      </Box>
+
+      {/* Bottom strip */}
+      <Box
+        sx={{
+          bgcolor: "#191919",
+          height: "30px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mt: "-1px",
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{ color: "#666", fontSize: "0.6rem", letterSpacing: "1px" }}
+        >
+          MacBook Air
+        </Typography>
+      </Box>
+
+      {/* Base */}
+      <Box
+        sx={{
+          position: "relative",
+          height: "10px",
+          width: "116%",
+          left: "-8%",
+          background: "linear-gradient(to bottom, #ABACB1 0%, #222 100%)",
+          borderRadius: "2px 2px 10px 10px",
+          boxShadow: "0 15px 30px rgba(0,0,0,0.5)",
+          zIndex: 1,
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "80px",
+            height: "4px",
+            background: "rgba(0,0,0,0.3)",
+            borderRadius: "0 0 8px 8px",
+          }
+        }}
+      />
+    </Box>
+  );
+};
 
 const FeatureCard = styled(Card)(({ theme }) => ({
   background: "transparent",
@@ -112,6 +198,8 @@ const screenshots = [
     type: "image",
   },
 ];
+
+
 
 function QuestionBank() {
   const theme = useTheme();
@@ -396,8 +484,8 @@ function QuestionBank() {
       </GradientBg>
 
       {/* Gallery Section - Full Width Showcase (Unchanged) */}
+    {/* Gallery Section - Laptop Showcase */}
       <Container ref={showcaseRef} maxWidth="lg" sx={{ mb: 12 }}>
-        {" "}
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -409,123 +497,117 @@ function QuestionBank() {
               Platform Showcase
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Visual walkthrough of key features and functionality
+              Visual walkthrough of the desktop management interface
             </Typography>
           </Box>
-          <Stack direction="row" spacing={1}>
-            <IconButton
-              onClick={handlePrev}
-              sx={{
-                border: `1px solid ${theme.palette.divider}`,
-                borderRadius: "12px",
-                "&:hover": { bgcolor: "primary.main", color: "white" },
-              }}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
-              sx={{
-                border: `1px solid ${theme.palette.divider}`,
-                borderRadius: "12px",
-                "&:hover": { bgcolor: "primary.main", color: "white" },
-              }}
-            >
-              <ChevronRightIcon />
-            </IconButton>
-          </Stack>
+        
         </Stack>
-        <Paper
-          elevation={0}
-          sx={{
-            borderRadius: "32px",
-            overflow: "hidden",
-            border: `1px solid ${theme.palette.divider}`,
-            position: "relative",
-          }}
-        >
-          <AnimatePresence mode="wait">
-            <MotionBox
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Box
-                sx={{
-                  position: "relative",
-                  height: { xs: "300px", md: "500px" },
-                }}
-              >
-                {screenshots[currentIndex].type === "video" ? (
-                  <video
-                    src={screenshots[currentIndex].url}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={screenshots[currentIndex].url}
-                    alt={screenshots[currentIndex].title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    p: 4,
-                    background: "linear-gradient(transparent, rgba(0,0,0,0.8))",
-                    color: "white",
-                  }}
-                >
-                  <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                    {screenshots[currentIndex].title}
-                  </Typography>
-                  <Typography variant="body2">
-                    {screenshots[currentIndex].desc}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionBox>
-          </AnimatePresence>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            justifyContent="center"
-            sx={{ py: 2 }}
-          >
+       <Box sx={{ px: { md: 10 }, position: "relative" }}>
+  <AnimatePresence mode="wait">
+    <MotionBox
+      key={currentIndex}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.4 }}
+    >
+      <LaptopFrame>
+        {screenshots[currentIndex].type === "video" ? (
+          <video
+            src={screenshots[currentIndex].url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <img
+            src={screenshots[currentIndex].url}
+            alt={screenshots[currentIndex].title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        )}
+      </LaptopFrame>
+    </MotionBox>
+  </AnimatePresence>
+
+  {/* 🔥 LEFT BUTTON */}
+  <IconButton
+    onClick={handlePrev}
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: { xs: -10, md: 0 },
+      transform: "translateY(-50%)",
+      bgcolor: "rgba(0,0,0,0.5)",
+      color: "#fff",
+      backdropFilter: "blur(6px)",
+      "&:hover": {
+        bgcolor: "primary.main",
+      },
+      zIndex: 10,
+    }}
+  >
+    <ChevronLeftIcon />
+  </IconButton>
+
+  {/* 🔥 RIGHT BUTTON */}
+  <IconButton
+    onClick={handleNext}
+    sx={{
+      position: "absolute",
+      top: "50%",
+      right: { xs: -10, md: 0 },
+     
+      bgcolor: "rgba(0,0,0,0.5)",
+      color: "#fff",
+      backdropFilter: "blur(6px)",
+      "&:hover": {
+        bgcolor: "primary.main",
+      },
+      zIndex: 10,
+    }}
+  >
+    <ChevronRightIcon />
+  </IconButton>
+</Box>
+
+        {/* Caption and Dots */}
+        <Box sx={{ mt: 5, textAlign: "center" }}>
+          <Typography variant="h5" fontWeight={700} gutterBottom>
+            {screenshots[currentIndex].title}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            {screenshots[currentIndex].desc}
+          </Typography>
+          
+          <Stack direction="row" spacing={1} justifyContent="center">
             {screenshots.map((_, i) => (
               <Box
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 sx={{
-                  width: i === currentIndex ? 24 : 8,
-                  height: 4,
-                  borderRadius: 2,
+                  width: i === currentIndex ? 32 : 8,
+                  height: 6,
+                  borderRadius: 3,
                   bgcolor: i === currentIndex ? "primary.main" : "divider",
                   cursor: "pointer",
-                  transition: "all 0.2s",
+                  transition: "all 0.3s",
                 }}
               />
             ))}
           </Stack>
-        </Paper>
+        </Box>
       </Container>
 
       {/* Problem & Solution - Split Layout (Unchanged) */}

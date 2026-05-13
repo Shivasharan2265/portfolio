@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
@@ -151,8 +151,23 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    window.location.href = `mailto:shivasharan2265@gmail.com?subject=${formData.subject}&body=${formData.message}`;
   };
 
   return (
@@ -252,18 +267,39 @@ function Contact() {
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2.5}>
                   <Grid item size={{ xs: 12, sm: 6 }}>
-                    <StyledTextField fullWidth label="Name" />
+                    <StyledTextField
+                      fullWidth
+                      label="Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
                   </Grid>
                   <Grid item size={{ xs: 12, sm: 6 }}>
-                    <StyledTextField fullWidth label="Email" />
+                    <StyledTextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
                   </Grid>
                   <Grid item size={{ xs: 12 }}>
-                    <StyledTextField fullWidth label="Subject" />
+                    <StyledTextField
+                      fullWidth
+                      label="Subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                    />
                   </Grid>
                   <Grid item size={{ xs: 12 }}>
                     <StyledTextField
                       fullWidth
                       label="Message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
                       multiline
                       rows={4}
                     />

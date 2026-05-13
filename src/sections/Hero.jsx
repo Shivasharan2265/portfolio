@@ -171,6 +171,22 @@ function Hero() {
 
   const skills = ["React.js", "Node.js", "Express.Js", "Mysql", "MongoDB"];
 
+  const handleScrollToWorks = () => {
+    const element = document.getElementById("works");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleDownloadResume = () => {
+  const link = document.createElement("a");
+  link.href = "/resume.pdf"; // 👈 file name in public folder
+  link.download = "Shivasharan_Resume.pdf"; // 👈 download file name
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
   return (
     <HeroSection>
       <InteractiveSquares
@@ -185,7 +201,7 @@ function Hero() {
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
         <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={7}>
+          <Grid item size={{ xs: 12, md: 7 }}>
             <GlassCard>
               <MotionBox
                 variants={containerVariants}
@@ -227,7 +243,7 @@ function Hero() {
                   }}
                   whileHover={{ x: 10, transition: { duration: 0.3 } }}
                 >
-                  Full-Stack Developer
+                  React Developer
                 </MotionTypography>
 
                 <MotionTypography
@@ -250,7 +266,7 @@ function Hero() {
                       justifyContent: { xs: "center", md: "flex-start" },
                     }}
                   >
-                    {skills.map((skill, index) => (
+                    {/* {skills.map((skill, index) => (
                       <React.Fragment key={skill}>
                         {index > 0 && (
                           <motion.span
@@ -282,7 +298,7 @@ function Hero() {
                           | {skill}
                         </motion.span>
                       </React.Fragment>
-                    ))}
+                    ))} */}
                   </Box>
                 </MotionTypography>
 
@@ -303,10 +319,11 @@ function Hero() {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
+                    onClick={handleScrollToWorks} // 👈 ADD THIS
                     sx={{
                       borderRadius: "12px",
                       px: 4,
-                      width: { xs: "100%", sm: "auto" }, // Full width on mobile
+                      width: { xs: "100%", sm: "auto" },
                       position: "relative",
                       overflow: "hidden",
                       "&::after": {
@@ -326,36 +343,37 @@ function Hero() {
                       },
                     }}
                   >
-                    Latest Work
+                    Latest Works
                   </MotionButton>
 
-                  <MotionButton
-                    variant="outlined"
-                    size="large"
-                    startIcon={<DownloadIcon />}
-                    variants={buttonVariants}
-                    whileHover="hover"
-                    whileTap="tap"
-                    sx={{
-                      borderRadius: "12px",
-                      px: 4,
-                      width: { xs: "100%", sm: "auto" }, // Full width on mobile
-                      backgroundColor: isDarkMode ? "transparent" : "#fff",
-                      borderColor: isDarkMode
-                        ? "rgba(59, 130, 246, 0.5)"
-                        : undefined,
-                      "&:hover": {
-                        backgroundColor: isDarkMode
-                          ? "rgba(59, 130, 246, 0.08)"
-                          : "#fff",
-                        borderColor: isDarkMode
-                          ? "rgba(59, 130, 246, 0.8)"
-                          : undefined,
-                      },
-                    }}
-                  >
-                    Resume
-                  </MotionButton>
+                 <MotionButton
+  variant="outlined"
+  size="large"
+  startIcon={<DownloadIcon />}
+  variants={buttonVariants}
+  whileHover="hover"
+  whileTap="tap"
+  onClick={handleDownloadResume} // 👈 ADD THIS
+  sx={{
+    borderRadius: "12px",
+    px: 4,
+    width: { xs: "100%", sm: "auto" },
+    backgroundColor: isDarkMode ? "transparent" : "#fff",
+    borderColor: isDarkMode
+      ? "rgba(59, 130, 246, 0.5)"
+      : undefined,
+    "&:hover": {
+      backgroundColor: isDarkMode
+        ? "rgba(59, 130, 246, 0.08)"
+        : "#fff",
+      borderColor: isDarkMode
+        ? "rgba(59, 130, 246, 0.8)"
+        : undefined,
+    },
+  }}
+>
+  Resume
+</MotionButton>
                 </MotionBox>
 
                 <MotionBox
@@ -377,7 +395,6 @@ function Hero() {
                       url: "https://www.linkedin.com/in/shivasharan26",
                       delay: 1,
                     },
-                  
                   ].map((social, index) => (
                     <MotionIconButton
                       key={index}
