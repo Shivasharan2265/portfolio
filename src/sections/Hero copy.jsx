@@ -41,17 +41,8 @@ const GlassCard = styled(Box)(({ theme }) => ({
 const SocialIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(59, 130, 246, 0.1)" : "#ffffff",
-  boxShadow:
-    theme.palette.mode === "dark"
-      ? "0 4px 12px rgba(0, 0, 0, 0.3)"
-      : "0 4px 12px rgba(0,0,0,0.05)",
-  "&:hover": {
-    transform: "translateY(-4px)",
-    color: theme.palette.primary.main,
-    backgroundColor:
-      theme.palette.mode === "dark" ? "rgba(59, 130, 246, 0.2)" : "#ffffff",
-  },
-  transition: "all 0.3s ease",
+  
+
 }));
 
 // Animation variants
