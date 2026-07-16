@@ -215,8 +215,7 @@ const techStackVariants = {
 function About() {
   const techStack = {
     frontend: ["React.js", "React Expo", "JavaScript", "Material-UI"],
-    backend: ["REST APIs", "Socket.io"],
-   
+    backend: ["Node.js","REST APIs", "Socket.io"],
     devops: ["Render", "Git"],
   };
 
@@ -285,7 +284,7 @@ function About() {
                   backgroundClip: "text",
                 }}
               >
-                React Developer
+                MERN Stack Developer
               </MotionTypography>
             </MotionBox>
 
@@ -299,7 +298,7 @@ function About() {
                 lineHeight: 1.8,
               }}
             >
-              I'm a passionate React Developer with a strong interest in
+              I'm a passionate MERN Stack Developer with a strong interest in
               building modern, user-friendly web applications. I enjoy bridging
               the gap between design, functionality, and technology to create
               seamless digital experiences.

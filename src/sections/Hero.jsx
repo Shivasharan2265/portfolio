@@ -179,13 +179,13 @@ function Hero() {
   };
 
   const handleDownloadResume = () => {
-  const link = document.createElement("a");
-  link.href = "/resume.pdf"; // 👈 file name in public folder
-  link.download = "Shivasharan_Resume.pdf"; // 👈 download file name
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    const link = document.createElement("a");
+    link.href = "/resume.pdf"; // 👈 file name in public folder
+    link.download = "Shivasharan_Resume.pdf"; // 👈 download file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <HeroSection>
@@ -243,7 +243,7 @@ function Hero() {
                   }}
                   whileHover={{ x: 10, transition: { duration: 0.3 } }}
                 >
-                  React Developer
+                  MERN Stack Developer
                 </MotionTypography>
 
                 <MotionTypography
@@ -266,7 +266,7 @@ function Hero() {
                       justifyContent: { xs: "center", md: "flex-start" },
                     }}
                   >
-                    {/* {skills.map((skill, index) => (
+                    {skills.map((skill, index) => (
                       <React.Fragment key={skill}>
                         {index > 0 && (
                           <motion.span
@@ -298,7 +298,7 @@ function Hero() {
                           | {skill}
                         </motion.span>
                       </React.Fragment>
-                    ))} */}
+                    ))}
                   </Box>
                 </MotionTypography>
 
@@ -346,34 +346,34 @@ function Hero() {
                     Latest Works
                   </MotionButton>
 
-                 <MotionButton
-  variant="outlined"
-  size="large"
-  startIcon={<DownloadIcon />}
-  variants={buttonVariants}
-  whileHover="hover"
-  whileTap="tap"
-  onClick={handleDownloadResume} // 👈 ADD THIS
-  sx={{
-    borderRadius: "12px",
-    px: 4,
-    width: { xs: "100%", sm: "auto" },
-    backgroundColor: isDarkMode ? "transparent" : "#fff",
-    borderColor: isDarkMode
-      ? "rgba(59, 130, 246, 0.5)"
-      : undefined,
-    "&:hover": {
-      backgroundColor: isDarkMode
-        ? "rgba(59, 130, 246, 0.08)"
-        : "#fff",
-      borderColor: isDarkMode
-        ? "rgba(59, 130, 246, 0.8)"
-        : undefined,
-    },
-  }}
->
-  Resume
-</MotionButton>
+                  <MotionButton
+                    variant="outlined"
+                    size="large"
+                    startIcon={<DownloadIcon />}
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={handleDownloadResume} // 👈 ADD THIS
+                    sx={{
+                      borderRadius: "12px",
+                      px: 4,
+                      width: { xs: "100%", sm: "auto" },
+                      backgroundColor: isDarkMode ? "transparent" : "#fff",
+                      borderColor: isDarkMode
+                        ? "rgba(59, 130, 246, 0.5)"
+                        : undefined,
+                      "&:hover": {
+                        backgroundColor: isDarkMode
+                          ? "rgba(59, 130, 246, 0.08)"
+                          : "#fff",
+                        borderColor: isDarkMode
+                          ? "rgba(59, 130, 246, 0.8)"
+                          : undefined,
+                      },
+                    }}
+                  >
+                    Resume
+                  </MotionButton>
                 </MotionBox>
 
                 <MotionBox

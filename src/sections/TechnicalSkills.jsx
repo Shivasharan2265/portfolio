@@ -94,13 +94,13 @@ const SkillName = styled(Typography)(({ theme }) => ({
 
 const skillsData = [
   { name: "React js", icon: "react", level: 5 },
-  // { name: "Node js", icon: "nodedotjs", level: 5 },
-  // { name: "Express js", icon: "express", level: 4 },
-  // { name: "Mongo DB", icon: "mongodb", level: 4 },
+  { name: "Node js", icon: "nodedotjs", level: 5 },
+  { name: "Express js", icon: "express", level: 4 },
+  { name: "Mongo DB", icon: "mongodb", level: 4 },
   { name: "React Expo", icon: "expo", level: 3 },
   { name: "Material UI", icon: "mui", level: 5 },
   { name: "Git hub", icon: "github", level: 4 },
-  // { name: "My SQL", icon: "mysql", level: 4 },
+  { name: "My SQL", icon: "mysql", level: 4 },
 ];
 
 const TechnicalSkills = () => {
